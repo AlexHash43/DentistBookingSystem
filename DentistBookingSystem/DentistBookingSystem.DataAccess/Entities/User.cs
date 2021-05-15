@@ -1,11 +1,17 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DentistBookingSystem.DataAccess.Entities
 {
-    class User
+    public class User : EntityBase
     {
-        public int Id { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
+
+
+        [Required]
+        [MaxLength(50)]
         public string Surname { get; set; }
 
     }
