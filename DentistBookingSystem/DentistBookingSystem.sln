@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistBookingSystem", "Den
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistBookingSystem.DataAccess", "DentistBookingSystem.DataAccess\DentistBookingSystem.DataAccess.csproj", "{ACF8B3C0-1385-4BB2-B45E-B265F4337170}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistBookingSystem.ApplicationServices", "DentistBookingSystem.ApplicationServices\DentistBookingSystem.ApplicationServices.csproj", "{C8CFD4BC-6144-4AAA-B311-72D6D9CFBEB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ACF8B3C0-1385-4BB2-B45E-B265F4337170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACF8B3C0-1385-4BB2-B45E-B265F4337170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACF8B3C0-1385-4BB2-B45E-B265F4337170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8CFD4BC-6144-4AAA-B311-72D6D9CFBEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CFD4BC-6144-4AAA-B311-72D6D9CFBEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CFD4BC-6144-4AAA-B311-72D6D9CFBEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CFD4BC-6144-4AAA-B311-72D6D9CFBEB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
