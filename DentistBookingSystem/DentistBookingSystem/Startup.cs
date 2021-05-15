@@ -1,4 +1,6 @@
+using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,8 @@ namespace DentistBookingSystem
             services.AddDbContext<AppointmentStorageContext>(
                opt => opt.UseSqlServer(this.Configuration.GetConnectionString("AppointmentsDatabaseConnection")));
             services.AddControllers();
+
+            services.AddMediatR(typeof(ResponseBase<>));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
