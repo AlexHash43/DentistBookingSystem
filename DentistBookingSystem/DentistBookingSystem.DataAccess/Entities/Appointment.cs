@@ -9,6 +9,10 @@ namespace DentistBookingSystem.DataAccess.Entities
     public class Appointment : EntityBase
     {
         public string Reason { get; set; }
+
+
+
+        
         public List<User> Users { get; set; }
     }
 }
