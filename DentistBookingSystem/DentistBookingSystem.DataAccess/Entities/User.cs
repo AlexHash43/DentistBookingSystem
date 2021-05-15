@@ -21,6 +21,8 @@ namespace DentistBookingSystem.DataAccess.Entities
 
         public List<Appointment> Appointments { get; set; }
         public List<EmergencyList> EmergencyLists { get; set; }
+        public List<Transaction> Transactions { get; set; }
+
 
     }
 }
