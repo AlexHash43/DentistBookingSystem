@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.DataAccess
 {
-    class AppointmentStorageContext : DbContext
+    public class AppointmentStorageContext : DbContext
     {
         public AppointmentStorageContext(DbContextOptions<AppointmentStorageContext> options)
         : base(options)
