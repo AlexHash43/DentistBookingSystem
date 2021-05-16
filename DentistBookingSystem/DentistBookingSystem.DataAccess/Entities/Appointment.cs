@@ -8,11 +8,15 @@ namespace DentistBookingSystem.DataAccess.Entities
 {
     public class Appointment : EntityBase
     {
+        public DateTime DateStart { get; set; }
+        public DateTime DateStop { get; set; }
         public string Reason { get; set; }
+        public string Note { get; set; }
 
 
 
-        
+
+
         public List<User> Users { get; set; }
     }
 }
