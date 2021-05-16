@@ -16,6 +16,22 @@ namespace DentistBookingSystem.DataAccess.Entities
         [MaxLength(50)]
         public string Surname { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        [MaxLength(25)]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
+        public DateTime DateRegistered { get; set; }
+
+
 
 
 
