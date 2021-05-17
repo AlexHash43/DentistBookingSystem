@@ -23,7 +23,7 @@ namespace DentistBookingSystem.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllTransactions([FromQuery] GetTransactionRequest request)
         {
-            var response = this.mediator.Send(request);
+            var response = await this.mediator.Send(request);
 
             return this.Ok(response);
         }
