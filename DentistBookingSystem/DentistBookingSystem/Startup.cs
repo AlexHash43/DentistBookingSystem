@@ -1,4 +1,5 @@
 using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.ApplicationServices.Mappings;
 using DentistBookingSystem.DataAccess;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace DentistBookingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(UsersProfile).Assembly);
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
