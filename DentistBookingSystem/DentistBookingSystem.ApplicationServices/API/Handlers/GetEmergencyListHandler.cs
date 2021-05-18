@@ -18,9 +18,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
         {
             this.emergencyListRepository = emergencyListRepository;
         }
-        public Task<GetEmergencyListResponse> Handle(GetEmergencyListRequest request, CancellationToken cancellationToken)
+        public async Task<GetEmergencyListResponse> Handle(GetEmergencyListRequest request, CancellationToken cancellationToken)
         {
-            var emergrncyList = this.emergencyListRepository.GetAll();
+            var emergrncyList = await this.emergencyListRepository.GetAll();
 
             var domainEmergencyList = emergrncyList.Select(x => new Domain.Models.EmergencyList
             {
@@ -34,7 +34,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
                 Data = domainEmergencyList.ToList()
              };
 
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

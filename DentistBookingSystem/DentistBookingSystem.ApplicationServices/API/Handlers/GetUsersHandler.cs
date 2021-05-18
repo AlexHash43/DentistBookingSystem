@@ -24,9 +24,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
-        public Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
+        public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
-            var users = this.userRepository.GetAll();
+            var users = await this.userRepository.GetAll();
             var mappedUsers = this.mapper.Map<List<Domain.Models.User>>(users);
             //var domainUsers = new List<Domain.Models.User>();
             //foreach (var user in users)
@@ -54,7 +54,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             {
                 Data = mappedUsers
             };
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

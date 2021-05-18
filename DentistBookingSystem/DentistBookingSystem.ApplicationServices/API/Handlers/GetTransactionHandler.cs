@@ -18,9 +18,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
         {
             this.transactionRepository = transactionRepository;
         }
-        public Task<GetTransactionResponse> Handle(GetTransactionRequest request, CancellationToken cancellationToken)
+        public async Task<GetTransactionResponse> Handle(GetTransactionRequest request, CancellationToken cancellationToken)
         {
-            var transaction = this.transactionRepository.GetAll();
+            var transaction = await this.transactionRepository.GetAll();
 
             var domainTransaction = transaction.Select(x => new Domain.Models.Transaction
             {
@@ -34,7 +34,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
                 Data = domainTransaction.ToList()
             };
 
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

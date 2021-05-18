@@ -19,9 +19,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             this.alertRepository = alertRepository;
         }
 
-        public Task<GetAlertResponse> Handle(GetAlertRequest request, CancellationToken cancellationToken)
+        public async Task<GetAlertResponse> Handle(GetAlertRequest request, CancellationToken cancellationToken)
         {
-            var alerts = this.alertRepository.GetAll();
+            var alerts = await this.alertRepository.GetAll();
 
             var domainAlerts = alerts.Select(x => new Domain.Models.Alert
             {
@@ -34,7 +34,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
                 Data = domainAlerts.ToList()
             };
 
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

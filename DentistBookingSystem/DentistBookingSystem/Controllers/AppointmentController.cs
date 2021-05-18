@@ -19,12 +19,12 @@ namespace DentistBookingSystem.Controllers
             this.appointmentRepository = appointmentRepository;
         }
 
-        [HttpGet]
-        [Route("")]
-        public IEnumerable<Appointment> GetAllApointments() => this.appointmentRepository.GetAll();
+        //[HttpGet]
+        //[Route("")]
+        //public IEnumerable<Appointment> GetAllApointments() => this.appointmentRepository.GetAll();
 
-        [HttpGet]
-        [Route("{appointmentId}")]
-        public Appointment GetAppointmentById(int appointmentId) => this.appointmentRepository.GetById(appointmentId);
+        //[HttpGet]
+        //[Route("{appointmentId}")]
+        //public Appointment GetAppointmentById(int appointmentId) => this.appointmentRepository.GetById(appointmentId);
     }
 }

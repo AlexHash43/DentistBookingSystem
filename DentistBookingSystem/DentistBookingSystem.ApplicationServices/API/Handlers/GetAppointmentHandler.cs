@@ -19,9 +19,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             this.appointmentRepository = appointmentRepository;
         }
 
-        public Task<GetAppointmentResponse> Handle(GetAppointmentRequest request, CancellationToken cancellationToken)
+        public async Task<GetAppointmentResponse> Handle(GetAppointmentRequest request, CancellationToken cancellationToken)
         {
-            var appointments = this.appointmentRepository.GetAll();
+            var appointments = await this.appointmentRepository.GetAll();
 
             var domainAppointmets = appointments.Select(x => new Domain.Models.Appointment
             {
@@ -36,7 +36,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
                 Data = domainAppointmets.ToList()
             };
 
-            return Task.FromResult(response);
+            return response;
         }
     }
 }
