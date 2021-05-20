@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DentistBookingSystem.ApplicationServices.API.Domain;
-using DentistBookingSystem.DataAccess;
+using DentistBookingSystem.DataAccess.CQRS;
 using DentistBookingSystem.DataAccess.CQRS.Queries;
 using DentistBookingSystem.DataAccess.Entities;
 using MediatR;

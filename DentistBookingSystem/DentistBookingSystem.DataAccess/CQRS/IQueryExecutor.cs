@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DentistBookingSystem.DataAccess
+namespace DentistBookingSystem.DataAccess.CQRS
 {
     public interface IQueryExecutor
     {

@@ -1,6 +1,7 @@
 using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.ApplicationServices.Mappings;
 using DentistBookingSystem.DataAccess;
+using DentistBookingSystem.DataAccess.CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
