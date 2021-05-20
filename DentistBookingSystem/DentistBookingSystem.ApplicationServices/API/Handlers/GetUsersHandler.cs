@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess;
+using DentistBookingSystem.DataAccess.CQRS.Queries;
 using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
 using System;
@@ -14,19 +15,17 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
 {
     public class GetUsersHandler : IRequestHandler<GetUserRequest, GetUserResponse>
     {
-        private readonly IRepository<User> userRepository;
+        private readonly IQueryExecutor queryExecutor;
         private readonly IMapper mapper;
-        public GetUsersHandler(
-            IRepository<DentistBookingSystem.DataAccess.Entities.User> userRepository, 
-            IMapper mapper
-            )
+        public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor)
         {
-            this.userRepository = userRepository;
             this.mapper = mapper;
+            this.queryExecutor = queryExecutor;
         }
         public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
-            var users = await this.userRepository.GetAll();
+            var query = new GetUsersQuery();
+            var users = await this.queryExecutor.Execute(query);
             var mappedUsers = this.mapper.Map<List<Domain.Models.User>>(users);
             //var domainUsers = new List<Domain.Models.User>();
             //foreach (var user in users)
