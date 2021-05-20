@@ -33,6 +33,7 @@ namespace DentistBookingSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IQueryExecutor, QueryExecutor>();
+            services.AddTransient<ICommandExecutor, CommandExecutor>();
 
             services.AddAutoMapper(typeof(UsersProfile).Assembly);
 
