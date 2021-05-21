@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.DataAccess.CQRS.Commands
 {
-    class AddUserCommand : CommandBase<User, User>
+    public class AddUsersCommand : CommandBase<User, User>
     {
         public override async Task<User> Execute(AppointmentStorageContext context)
         {
