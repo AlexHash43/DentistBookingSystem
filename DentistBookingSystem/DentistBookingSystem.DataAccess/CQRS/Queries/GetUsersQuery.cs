@@ -10,8 +10,14 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
 {
     public class GetUsersQuery : QueryBase<List<User>>
     {
+        public string Name { get; set; }
+
         public override Task<List<User>> Execute(AppointmentStorageContext context)
         {
+            if (Name != null)
+            {
+                return context.Users.Where(x => x.Name == this.Name).ToListAsync();
+            }
             return context.Users.ToListAsync();
             
         }

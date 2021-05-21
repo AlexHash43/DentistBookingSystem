@@ -1,4 +1,5 @@
 ﻿using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.DataAccess.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,7 @@ namespace DentistBookingSystem.Controllers
         [Route("")]
         public async Task<IActionResult> AddUser([FromBody] AddUsersRequest request)
         {
+            
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }

@@ -24,7 +24,10 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
         }
         public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetUsersQuery();
+            var query = new GetUsersQuery()
+            { 
+                Name = request.Name 
+            };
             var users = await this.queryExecutor.Execute(query);
             var mappedUsers = this.mapper.Map<List<Domain.Models.User>>(users);
             //var domainUsers = new List<Domain.Models.User>();
