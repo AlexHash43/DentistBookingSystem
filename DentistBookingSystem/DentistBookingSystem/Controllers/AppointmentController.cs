@@ -25,6 +25,17 @@ namespace DentistBookingSystem.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+        [HttpGet]
+        [Route("{apointmentId}")]
+        public async Task<IActionResult> GetByID([FromRoute] int apointmentId)
+        {
+            var request = new GetAppointmentByIdRequest()
+            {
+                Id = apointmentId
+            };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
 
         [HttpPost]
         [Route("")]
