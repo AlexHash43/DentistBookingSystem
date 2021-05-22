@@ -8,6 +8,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain.Models
 {
     public class Appointment
     {
+        public int Id { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateStop { get; set; }
         public string Reason { get; set; }

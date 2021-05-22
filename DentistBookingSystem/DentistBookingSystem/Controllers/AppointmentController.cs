@@ -1,10 +1,9 @@
-﻿using DentistBookingSystem.DataAccess;
+﻿using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.DataAccess;
 using DentistBookingSystem.DataAccess.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
@@ -13,18 +12,18 @@ namespace DentistBookingSystem.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private readonly IRepository<Appointment> appointmentRepository;
-        public AppointmentController(IRepository<Appointment> appointmentRepository)
+        private readonly IMediator mediator;
+        public AppointmentController(IMediator mediator)
         {
-            this.appointmentRepository = appointmentRepository;
+            this.mediator = mediator;
         }
 
-        //[HttpGet]
-        //[Route("")]
-        //public IEnumerable<Appointment> GetAllApointments() => this.appointmentRepository.GetAll();
-
-        //[HttpGet]
-        //[Route("{appointmentId}")]
-        //public Appointment GetAppointmentById(int appointmentId) => this.appointmentRepository.GetById(appointmentId);
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentRequest request)
+        {
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }

@@ -1,5 +1,8 @@
-﻿using DentistBookingSystem.ApplicationServices.API.Domain;
+﻿using AutoMapper;
+using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess;
+using DentistBookingSystem.DataAccess.CQRS;
+using DentistBookingSystem.DataAccess.CQRS.Queries;
 using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
 using System;
@@ -13,29 +16,29 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
 {
     public class GetAppointmentHandler : IRequestHandler<GetAppointmentRequest, GetAppointmentResponse>
     {
-        private readonly IRepository<Appointment> appointmentRepository;
-        public GetAppointmentHandler(IRepository<DentistBookingSystem.DataAccess.Entities.Appointment> appointmentRepository)
+        private readonly IQueryExecutor queryExecutor;
+        private readonly IMapper mapper;
+        public GetAppointmentHandler(IQueryExecutor  queryExecutor, IMapper mapper)
         {
-            this.appointmentRepository = appointmentRepository;
+            this.mapper = mapper;
+            this.queryExecutor = queryExecutor;
         }
 
         public async Task<GetAppointmentResponse> Handle(GetAppointmentRequest request, CancellationToken cancellationToken)
         {
-            var appointments = await this.appointmentRepository.GetAll();
+            var query = new GetAppointmentsQuery();
+            
+            var appointments = await this.queryExecutor.Execute(query);
+            var mappedAppointments = this.mapper.Map<List<Domain.Models.Appointment>>(appointments);
+            
 
-            var domainAppointmets = appointments.Select(x => new Domain.Models.Appointment
-            {
-                DateStart = x.DateStart,
-                DateStop = x.DateStop,
-                Note = x.Note,
-                Reason = x.Reason
-            });
+
+
 
             var response = new GetAppointmentResponse()
             {
-                Data = domainAppointmets.ToList()
+                Data = mappedAppointments
             };
-
             return response;
         }
     }
