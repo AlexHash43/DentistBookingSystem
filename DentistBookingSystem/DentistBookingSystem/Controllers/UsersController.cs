@@ -49,6 +49,15 @@ namespace DentistBookingSystem.Controllers
             return this.Ok(response);
         }
 
+        [HttpPut]
+        [Route("{userId}")]
+        public async Task<IActionResult> UpdateUser([FromBody]UpdateUsersRequest request, [FromRoute] int userId)
+        {
+            request.Id = userId;
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
         [HttpDelete]
         [Route("{userId}")]
         public async Task<IActionResult> DeleteUserByID([FromRoute] int userId)

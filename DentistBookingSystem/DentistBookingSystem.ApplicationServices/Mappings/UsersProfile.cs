@@ -30,7 +30,16 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
 
             this.CreateMap<DeleteUserByIdRequest, DataAccess.Entities.User>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id));
-                
+
+            this.CreateMap<UpdateUsersRequest, DataAccess.Entities.User>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+               .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+               .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))
+               .ForMember(x => x.Email, y => y.MapFrom(z => z.Email))
+               .ForMember(x => x.BirthDate, y => y.MapFrom(z => z.BirthDate))
+               .ForMember(x => x.PhoneNumber, y => y.MapFrom(z => z.PhoneNumber))
+               .ForMember(x => x.Gender, y => y.MapFrom(z => z.Gender));
+
 
         }
     }
