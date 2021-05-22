@@ -25,5 +25,14 @@ namespace DentistBookingSystem.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> AddAppointment([FromBody] AddAppointmentRequest request)
+        {
+
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }
