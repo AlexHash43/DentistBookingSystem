@@ -48,9 +48,22 @@ namespace DentistBookingSystem.Controllers
 
         [HttpPut]
         [Route("{apointmentId}")]
-        public async Task<IActionResult> UpdateAppointment([FromBody]UpdateAppointmentRequest request, [FromRoute] int apointmentId)
+        public async Task<IActionResult> UpdateAppointment([FromBody] UpdateAppointmentRequest request, [FromRoute] int apointmentId)
         {
             request.Id = apointmentId;
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{appointmentId}")]
+        public async Task<IActionResult> DeleteAppointment([FromRoute] int appointmentId)
+        {
+            var request = new DeleteAppointmrntByIdRequest()
+            {
+                Id = appointmentId
+            };
+
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
