@@ -1,5 +1,8 @@
-﻿using DentistBookingSystem.ApplicationServices.API.Domain;
+﻿using AutoMapper;
+using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess;
+using DentistBookingSystem.DataAccess.CQRS;
+using DentistBookingSystem.DataAccess.CQRS.Queries;
 using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
 using System;
@@ -13,28 +16,24 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
 {
     public class GetEmergencyListHandler : IRequestHandler<GetEmergencyListRequest, GetEmergencyListResponse>
     {
-        private readonly IRepository<EmergencyList> emergencyListRepository;
-        public GetEmergencyListHandler(IRepository<DentistBookingSystem.DataAccess.Entities.EmergencyList> emergencyListRepository)
+        private readonly IQueryExecutor queryExecutor;
+        private readonly IMapper mapper;
+        public GetEmergencyListHandler(IQueryExecutor queryExecutor, IMapper mapper)
         {
-            this.emergencyListRepository = emergencyListRepository;
+            this.mapper = mapper;
+            this.queryExecutor = queryExecutor;
         }
         public async Task<GetEmergencyListResponse> Handle(GetEmergencyListRequest request, CancellationToken cancellationToken)
         {
-            var emergrncyList = await this.emergencyListRepository.GetAll();
-
-            var domainEmergencyList = emergrncyList.Select(x => new Domain.Models.EmergencyList
-            {
-                AlertId = x.AlertId,
-                User = x.User,
-                UserId = x.UserId
-            });
-
+            var query = new GetEmergencyListsQuery();
+            var emergencyLists = await this.queryExecutor.Execute(query);
+            var mappedEmergencyLists = this.mapper.Map<List<API.Domain.Models.EmergencyList>>(emergencyLists);
             var response = new GetEmergencyListResponse()
-            {
-                Data = domainEmergencyList.ToList()
-             };
-
+            { Data = mappedEmergencyLists };
             return response;
+
+
+
         }
     }
 }

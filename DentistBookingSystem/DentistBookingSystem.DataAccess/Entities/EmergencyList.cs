@@ -8,6 +8,7 @@ namespace DentistBookingSystem.DataAccess.Entities
 {
     public class EmergencyList : EntityBase
     {
+        
         public int UserId { get; set; }
         public User User { get; set; }
 
