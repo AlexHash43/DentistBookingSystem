@@ -9,6 +9,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain.Models
 {
     public class EmergencyList
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public DentistBookingSystem.DataAccess.Entities.User User { get; set; }
 
