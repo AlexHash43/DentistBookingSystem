@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.ApplicationServices.API.ErrorHandling;
 using DentistBookingSystem.DataAccess.CQRS;
 using DentistBookingSystem.DataAccess.CQRS.Queries;
 using MediatR;
@@ -30,6 +31,14 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             };
 
             var user = await this.queryExecutor.Execute(query);
+
+            if (user == null)
+            {
+                return new GetUserByIdResponse
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
             var mappedUser = this.mapper.Map<Domain.Models.User>(user);
             var response = new GetUserByIdResponse()
             {

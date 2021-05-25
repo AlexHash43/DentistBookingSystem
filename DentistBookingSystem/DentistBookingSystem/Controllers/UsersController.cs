@@ -12,12 +12,11 @@ namespace DentistBookingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-        public UsersController(IMediator mediator)
-        {
-            this.mediator = mediator;
+       
+        public UsersController(IMediator mediator) : base(mediator)
+        { 
         }
         [HttpGet]
         [Route("")]
@@ -29,27 +28,21 @@ namespace DentistBookingSystem.Controllers
 
         [HttpGet]
         [Route("{userId}")]
-        public async Task<IActionResult> GetByID([FromRoute] int userId)
+        public Task<IActionResult> GetByID([FromRoute] int userId)
         {
             var request = new GetUserByIdRequest()
             {
                 UserId = userId
             };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
         }
 
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddUser([FromBody] AddUsersRequest request)
+        public Task<IActionResult> AddUser([FromBody] AddUsersRequest request)
         {
-            if(!this.ModelState.IsValid)
-            {
-                return this.BadRequest("BAD_REQUEST");
-            }
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<AddUsersRequest, AddUsersResponse>(request);
         }
 
         [HttpPut]

@@ -12,7 +12,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Validators
     {
         public AddUsersRequestValidator()
         {
-            this.RuleFor(x => x.Name).Length(1,50);
+            this.RuleFor(x => x.Name).Length(1,50).WithMessage("WRONG_RANGE");
             this.RuleFor(x => x.Surname).Length(1, 50);
             this.RuleFor(x => x.Email).Length(1, 50);
         }
