@@ -1,7 +1,9 @@
 using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.ApplicationServices.API.Validators;
 using DentistBookingSystem.ApplicationServices.Mappings;
 using DentistBookingSystem.DataAccess;
 using DentistBookingSystem.DataAccess.CQRS;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +34,9 @@ namespace DentistBookingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddUsersRequestValidator>());
+
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
 
