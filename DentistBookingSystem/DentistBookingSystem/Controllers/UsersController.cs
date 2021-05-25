@@ -44,7 +44,10 @@ namespace DentistBookingSystem.Controllers
         [Route("")]
         public async Task<IActionResult> AddUser([FromBody] AddUsersRequest request)
         {
-            
+            if(!this.ModelState.IsValid)
+            {
+                return this.BadRequest("BAD_REQUEST");
+            }
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
