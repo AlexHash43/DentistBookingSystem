@@ -17,6 +17,6 @@ namespace DentistBookingSystem.DataAccess.Entities
 
 
 
-        public List<User> Users { get; set; }
+        public User Users { get; set; }
     }
 }

@@ -12,9 +12,7 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
     {
         public override Task<List<Appointment>> Execute(AppointmentStorageContext context)
         {
-            return context.Appointments
-                .Include(x => x.Users)
-                .ToListAsync();
+            return context.Appointments.ToListAsync();
         }
     }
 }

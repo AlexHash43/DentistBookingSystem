@@ -18,7 +18,9 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
             {
                 return context.Users.Where(x => x.Name == this.Name).ToListAsync();
             }
-            return context.Users.ToListAsync();
+            return context.Users
+                .Include(x => x.Appointments)
+                .ToListAsync();
             
         }
     }
