@@ -3,6 +3,7 @@ using DentistBookingSystem.DataAccess.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace DentistBookingSystem.Controllers
     public class UsersController : ApiControllerBase
     {
        
-        public UsersController(IMediator mediator) : base(mediator)
-        { 
+        public UsersController(IMediator mediator, ILogger<UsersController> logger) : base(mediator)
+        {
+            logger.LogInformation("We are in Users Controller");
         }
         [HttpGet]
         [Route("")]
