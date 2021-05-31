@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DentistBookingSystem.ApplicationServices.Components.OpenWheather;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,29 +13,20 @@ namespace DentistBookingSystem.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IMediator mediator;
+        private readonly IWeatherConnector weatherConnector;
+        public WeatherForecastController(IMediator mediator, IWeatherConnector weatherConnector)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            this.mediator = mediator;
+            this.weatherConnector = weatherConnector;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Route("")]
+        public async Task<IActionResult> GetWheater()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var weather = await this.weatherConnector.Fetch("Aberdeen");
+            return Ok(weather);
         }
     }
 }

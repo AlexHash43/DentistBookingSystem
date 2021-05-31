@@ -1,5 +1,6 @@
 using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.ApplicationServices.API.Validators;
+using DentistBookingSystem.ApplicationServices.Components.OpenWheather;
 using DentistBookingSystem.ApplicationServices.Mappings;
 using DentistBookingSystem.DataAccess;
 using DentistBookingSystem.DataAccess.CQRS;
@@ -44,6 +45,7 @@ namespace DentistBookingSystem
 
             services.AddTransient<IQueryExecutor, QueryExecutor>();
             services.AddTransient<ICommandExecutor, CommandExecutor>();
+            services.AddTransient<IWeatherConnector, WeatherConnector>();
 
             services.AddAutoMapper(typeof(UsersProfile).Assembly);
 
