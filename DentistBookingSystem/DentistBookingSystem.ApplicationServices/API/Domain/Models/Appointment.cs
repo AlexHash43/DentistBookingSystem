@@ -13,6 +13,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain.Models
         public DateTime DateStop { get; set; }
         public string Reason { get; set; }
         public string Note { get; set; }
-        
+        public int UserId { get; set; }
+
     }
 }
