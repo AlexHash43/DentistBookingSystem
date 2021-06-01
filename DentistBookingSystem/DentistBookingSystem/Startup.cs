@@ -2,10 +2,12 @@ using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.ApplicationServices.API.Validators;
 using DentistBookingSystem.ApplicationServices.Components.OpenWheather;
 using DentistBookingSystem.ApplicationServices.Mappings;
+using DentistBookingSystem.Authentication;
 using DentistBookingSystem.DataAccess;
 using DentistBookingSystem.DataAccess.CQRS;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,9 @@ namespace DentistBookingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddUsersRequestValidator>());
 
@@ -77,7 +82,7 @@ namespace DentistBookingSystem
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
