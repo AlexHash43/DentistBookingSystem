@@ -41,7 +41,7 @@ namespace DentistBookingSystem.Controllers
             return this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("")]
         public Task<IActionResult> AddUser([FromBody] AddUsersRequest request)

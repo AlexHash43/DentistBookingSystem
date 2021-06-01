@@ -4,14 +4,16 @@ using DentistBookingSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentistBookingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(AppointmentStorageContext))]
-    partial class AppointmentStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20210601173817_AddedAtributesRequiredForPassworAndUsername")]
+    partial class AddedAtributesRequiredForPassworAndUsername
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,15 +8,18 @@ namespace DentistBookingSystem.DataAccess.Entities
     {
        
         [Required]
+        [MinLength(1)]
         [MaxLength(50)]
         public string Name { get; set; }
 
 
         [Required]
+        [MinLength(1)]
         [MaxLength(50)]
         public string Surname { get; set; }
 
         [Required]
+        [MinLength(5)]
         [MaxLength(50)]
         public string Email { get; set; }
 
@@ -30,7 +33,13 @@ namespace DentistBookingSystem.DataAccess.Entities
         [Required]
         public string Gender { get; set; }
         public DateTime DateRegistered { get; set; }
+
+        [Required]
+        [MaxLength(50)]
         public string UserName { get; set; }
+
+        [Required]
+        [MinLength(8)]
         public string Password { get; set; }
 
 
