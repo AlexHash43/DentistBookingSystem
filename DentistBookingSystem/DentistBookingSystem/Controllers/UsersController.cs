@@ -24,10 +24,11 @@ namespace DentistBookingSystem.Controllers
         }
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllUsers([FromQuery]GetUserRequest request)
+        public Task<IActionResult> GetAllUsers([FromQuery]GetUserRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetUserRequest, GetUserResponse>(request);
+           // var response = await this.mediator.Send(request);
+           // return this.Ok(response);
         }
 
         [HttpGet]

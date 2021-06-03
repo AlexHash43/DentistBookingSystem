@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
@@ -29,6 +30,9 @@ namespace DentistBookingSystem.Controllers
                     .Where(x => x.Value.Errors.Any())
                     .Select(x => new { property = x.Key, errors = x.Value.Errors }));
             }
+
+            var userName = this.User.FindFirstValue(ClaimTypes.Name);
+
 
             var response = await this.mediator.Send(request);
             if (response.Error != null)
