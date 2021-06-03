@@ -41,6 +41,8 @@ namespace DentistBookingSystem.DataAccess.Entities
         [Required]
         [MinLength(8)]
         public string Password { get; set; }
+        public string Salt { get; set; }
+
 
 
 
