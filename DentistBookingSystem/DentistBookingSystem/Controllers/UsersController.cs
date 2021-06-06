@@ -1,6 +1,7 @@
 ﻿using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess.CQRS.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
@@ -69,6 +71,20 @@ namespace DentistBookingSystem.Controllers
             };
             var response = await this.mediator.Send(request);
             return this.Ok(response);
+        }
+
+        [HttpGet]
+        [Route("me")]
+        public Task<IActionResult> GetMe()
+        {
+            ClaimsPrincipal principal = HttpContext.User;
+
+            var request = new GetMeRequest()
+            {
+                UserId = principal.FindFirst(ClaimTypes.NameIdentifier).Value
+            };
+            return this.HandleRequest<GetMeRequest, GetMeResponse>(request);
+            
         }
     }
 }
