@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using DentistBookingSystem.ApplicationServices.API.Authentication;
 using DentistBookingSystem.DataAccess.CQRS;
 using DentistBookingSystem.DataAccess.CQRS.Queries;
 using DentistBookingSystem.DataAccess.Entities;
@@ -60,7 +61,9 @@ namespace DentistBookingSystem.Authentication
                 user = await this.queryExecutor.Execute(query);
 
                 // TODO: HASH!
-                if (user == null || user.Password != password)
+                PasswordHashing passwordHashing = new PasswordHashing();
+                var hashedPassword = passwordHashing.Login(password, user.Salt);
+                if (user == null || user.Password != hashedPassword)
                 {
                     return AuthenticateResult.Fail("Invalid Authorization Header");
                 }
