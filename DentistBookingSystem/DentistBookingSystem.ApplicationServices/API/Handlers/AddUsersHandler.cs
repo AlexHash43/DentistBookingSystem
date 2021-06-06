@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DentistBookingSystem.ApplicationServices.API.Authentication;
 using DentistBookingSystem.ApplicationServices.API.Domain;
 using DentistBookingSystem.DataAccess.CQRS;
 using DentistBookingSystem.DataAccess.CQRS.Commands;
@@ -26,6 +27,12 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
         public async Task<AddUsersResponse> Handle(AddUsersRequest request, CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<User>(request);
+
+            PasswordHashing passwordHashing = new PasswordHashing(user.Password);
+            var newHash = passwordHashing.CreateNewPassword();
+            user.Password = newHash.Password;
+            user.Salt = newHash.Salt;
+            
             var command = new AddUsersCommand() { Parameter = user };
 
            var userFromDB =  await this.commandExecutor.Execute(command);

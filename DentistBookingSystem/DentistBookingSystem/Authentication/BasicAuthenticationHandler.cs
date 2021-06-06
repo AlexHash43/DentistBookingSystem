@@ -61,8 +61,8 @@ namespace DentistBookingSystem.Authentication
                 user = await this.queryExecutor.Execute(query);
 
                 // TODO: HASH!
-                PasswordHashing passwordHashing = new PasswordHashing();
-                var hashedPassword = passwordHashing.Login(password, user.Salt);
+                PasswordHashing passwordHashing = new PasswordHashing(password, user.Salt);
+                var hashedPassword = passwordHashing.Login();
                 if (user == null || user.Password != hashedPassword)
                 {
                     return AuthenticateResult.Fail("Invalid Authorization Header");
