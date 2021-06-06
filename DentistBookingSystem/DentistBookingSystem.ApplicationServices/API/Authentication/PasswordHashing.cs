@@ -12,6 +12,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Authentication
     {
         public string Password { get; set; }
         public string Salt { get; set; }
+
         public PasswordHashing()
         {
 
@@ -20,12 +21,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Authentication
         {
             this.Password = password;
         }
-        public PasswordHashing(string password, string salt)
-        {
-            this.Password = password;
-            this.Salt = salt;
-        }
-
+        
         public PasswordHashing CreateNewPassword()
         {
             // generate a 128-bit salt using a secure PRNG
