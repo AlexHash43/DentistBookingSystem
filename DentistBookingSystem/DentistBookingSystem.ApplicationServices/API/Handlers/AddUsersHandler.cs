@@ -23,16 +23,20 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             this.commandExecutor = commandExecutor;
             this.mapper = mapper;
         }
-
+        ///
         public async Task<AddUsersResponse> Handle(AddUsersRequest request, CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<User>(request);
-
+            
+            /* Added Extra information b4 adding to database
+             * New User always will be Patient
+             */
             PasswordHashing passwordHashing = new PasswordHashing(user.Password);
             var newHash = passwordHashing.CreateNewPassword();
             user.Password = newHash.Password;
             user.Salt = newHash.Salt;
-            
+            user.Role = 0;
+
             var command = new AddUsersCommand() { Parameter = user };
 
            var userFromDB =  await this.commandExecutor.Execute(command);
