@@ -1,9 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DentistBookingSystem.DataAccess.Entities
 {
+    public enum UserRoles
+    {
+        Patient,
+        Recepcjonist,
+        Administrator
+    }
     public class User : EntityBase
     {
        
@@ -42,6 +50,7 @@ namespace DentistBookingSystem.DataAccess.Entities
         [MinLength(8)]
         public string Password { get; set; }
         public string Salt { get; set; }
+        public UserRoles Role { get; set; }
 
 
 

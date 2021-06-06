@@ -14,6 +14,7 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
         public UsersProfile()
         {
             this.CreateMap<DentistBookingSystem.DataAccess.Entities.User, User>()
+                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))
