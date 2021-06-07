@@ -3,27 +3,27 @@
 using DentistBookingSystem.ApplicationServices.API.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlertController : ControllerBase
+    public class AlertController : ApiControllerBase
     {
-        private readonly IMediator mediator;
         
-        public AlertController(IMediator mediator)
+        
+        public AlertController(IMediator mediator, ILogger<AlertController> logger) : base(mediator)
         {
-            this.mediator = mediator;
+            logger.LogInformation("We are in Alert Controller");
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllAlerts([FromQuery] GetAlertRequest request)
+        public Task<IActionResult> GetAllAlerts([FromQuery] GetAlertRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAlertRequest, GetAlertResponse>(request);
         }
     }
 }

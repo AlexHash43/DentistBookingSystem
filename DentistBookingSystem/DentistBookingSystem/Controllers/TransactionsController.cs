@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,19 @@ namespace DentistBookingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TransactionsController : ControllerBase
+    public class TransactionsController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-        public TransactionsController(IMediator mediator)
+        
+        public TransactionsController(IMediator mediator, ILogger<TransactionsController> logger) : base(mediator)
         {
-            this.mediator = mediator;
+            logger.LogInformation("We are in Transaction Controller");
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllTransactions([FromQuery] GetTransactionRequest request)
+        public Task<IActionResult> GetAllTransactions([FromQuery] GetTransactionRequest request)
         {
-            var response = await this.mediator.Send(request);
-
-            return this.Ok(response);
+            return this.HandleRequest<GetTransactionRequest, GetTransactionResponse>(request);
         }
     }
 }

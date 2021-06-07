@@ -4,68 +4,64 @@ using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class AppointmentController : ApiControllerBase
     {
-        private readonly IMediator mediator;
-        public AppointmentController(IMediator mediator)
+        
+        public AppointmentController(IMediator mediator, ILogger<AppointmentController> logger) : base(mediator)
         {
-            this.mediator = mediator;
+            logger.LogInformation("We are in Appointment Controller");
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentRequest request)
+        public Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAppointmentRequest, GetAppointmentResponse>(request);
         }
         [HttpGet]
         [Route("{apointmentId}")]
-        public async Task<IActionResult> GetByID([FromRoute] int apointmentId)
+        public Task<IActionResult> GetByID([FromRoute] int apointmentId)
         {
             var request = new GetAppointmentByIdRequest()
             {
                 Id = apointmentId
             };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAppointmentByIdRequest, GetAppointmentByIdResponse>(request);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddAppointment([FromBody] AddAppointmentRequest request)
+        public Task<IActionResult> AddAppointment([FromBody] AddAppointmentRequest request)
         {
 
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<AddAppointmentRequest, AddAppointmentResponse>(request);
         }
 
         [HttpPut]
         [Route("{apointmentId}")]
-        public async Task<IActionResult> UpdateAppointment([FromBody] UpdateAppointmentRequest request, [FromRoute] int apointmentId)
+        public Task<IActionResult> UpdateAppointment([FromBody] UpdateAppointmentRequest request, [FromRoute] int apointmentId)
         {
             request.Id = apointmentId;
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<UpdateAppointmentRequest, UpdateAppointmentResponse>(request);
         }
 
         [HttpDelete]
         [Route("{appointmentId}")]
-        public async Task<IActionResult> DeleteAppointment([FromRoute] int appointmentId)
+        public Task<IActionResult> DeleteAppointment([FromRoute] int appointmentId)
         {
             var request = new DeleteAppointmrntByIdRequest()
             {
                 Id = appointmentId
             };
 
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteAppointmrntByIdRequest, DeleteAppointmrntByIdResponse>(request);
         }
     }
 }
