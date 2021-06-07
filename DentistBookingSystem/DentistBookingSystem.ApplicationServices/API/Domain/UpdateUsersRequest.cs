@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DentistBookingSystem.DataAccess.Entities;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
 {
     public class UpdateUsersRequest : IRequest<UpdateUsersResponse>
     {
+        
         public int Id { get; set; }
         public string Name { get; set; }
 
@@ -21,5 +23,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
         public string PhoneNumber { get; set; }
 
         public string Gender { get; set; }
+        public string Password { get; set; }
+        public UserRoles Role { get; set; }
     }
 }
