@@ -40,7 +40,7 @@ namespace DentistBookingSystem.DataAccess.Entities
 
         [Required]
         public string Gender { get; set; }
-        public DateTime DateRegistered { get; set; }
+        public DateTime DateRegistered { get; set; } = DateTime.UtcNow;
 
         [Required]
         [MaxLength(50)]
