@@ -36,6 +36,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             user.Password = newHash.Password;
             user.Salt = newHash.Salt;
             user.Role = 0;
+            
 
             var command = new AddUsersCommand() { Parameter = user };
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace DentistBookingSystem.DataAccess.Entities
@@ -32,6 +33,8 @@ namespace DentistBookingSystem.DataAccess.Entities
         public string Email { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
         public DateTime BirthDate { get; set; }
 
         [Required]

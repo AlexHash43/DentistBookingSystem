@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ApiControllerBase

@@ -26,7 +26,8 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
         {
             var query = new GetUsersQuery()
             { 
-                Name = request.Name 
+                Name = request.Name,
+                BirthDate = request.BirthDate
             };
             var users = await this.queryExecutor.Execute(query);
             var mappedUsers = this.mapper.Map<List<Domain.Models.User>>(users);
