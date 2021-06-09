@@ -11,18 +11,17 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
     public class GetUsersQuery : QueryBase<List<User>>
     {
         public string Name { get; set; }
+        public string Surname { get; set; }
         public string BirthDate { get; set; }
 
         public override Task<List<User>> Execute(AppointmentStorageContext context)
         {
-            if (Name != null || BirthDate != null)
+            if (Name != "" || Surname != "" || BirthDate != "")
             {
-                if (Name != null && BirthDate != null)
-                {
-                    return context.Users.Where(x => x.Name == this.Name && x.BirthDate.ToString() == this.BirthDate).ToListAsync();
-                }
-                return context.Users.Where(x => x.Name == this.Name || x.BirthDate.ToString() == this.BirthDate).ToListAsync();
-
+                return context.Users.Where(x => x.Name.StartsWith(this.Name) &&
+                                                x.Surname.StartsWith(this.Surname) &&
+                                                x.BirthDate.ToString().StartsWith(this.BirthDate))
+                                                .ToListAsync();
             }
             return context.Users
                 .Include(x => x.Appointments)

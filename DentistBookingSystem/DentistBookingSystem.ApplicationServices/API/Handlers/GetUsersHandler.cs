@@ -27,6 +27,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             var query = new GetUsersQuery()
             { 
                 Name = request.Name,
+                Surname = request.Surname,
                 BirthDate = request.BirthDate
             };
             var users = await this.queryExecutor.Execute(query);
