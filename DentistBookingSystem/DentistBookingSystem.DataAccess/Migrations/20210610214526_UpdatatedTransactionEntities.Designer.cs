@@ -4,14 +4,16 @@ using DentistBookingSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentistBookingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(AppointmentStorageContext))]
-    partial class AppointmentStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20210610214526_UpdatatedTransactionEntities")]
+    partial class UpdatatedTransactionEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +100,6 @@ namespace DentistBookingSystem.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AppointmentId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -108,8 +107,6 @@ namespace DentistBookingSystem.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("UsersId");
 
@@ -205,10 +202,6 @@ namespace DentistBookingSystem.DataAccess.Migrations
 
             modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.Transaction", b =>
                 {
-                    b.HasOne("DentistBookingSystem.DataAccess.Entities.Appointment", null)
-                        .WithMany("Transactions")
-                        .HasForeignKey("AppointmentId");
-
                     b.HasOne("DentistBookingSystem.DataAccess.Entities.User", "Users")
                         .WithMany("Transactions")
                         .HasForeignKey("UsersId")
@@ -221,11 +214,6 @@ namespace DentistBookingSystem.DataAccess.Migrations
             modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.Alert", b =>
                 {
                     b.Navigation("EmergencyLists");
-                });
-
-            modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.Appointment", b =>
-                {
-                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.User", b =>

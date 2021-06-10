@@ -26,5 +26,16 @@ namespace DentistBookingSystem.Controllers
         {
             return this.HandleRequest<GetTransactionRequest, GetTransactionResponse>(request);
         }
+
+        [HttpGet]
+        [Route("{transactionId}")]
+        public Task<IActionResult> GetTransactionID([FromRoute] int transactionId)
+        {
+            var request = new GetTransactionByIdRequest
+            {
+                TransactionId = transactionId
+            };
+            return this.HandleRequest<GetTransactionByIdRequest, GetTransactionByIdResponse>(request);
+        }
     }
 }

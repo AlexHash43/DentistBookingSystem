@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.ApplicationServices.API.Domain
 {
-    public class GetTransactionRequest : IRequest<GetTransactionResponse>
+    public class GetTransactionByIdRequest : IRequest<GetTransactionByIdResponse>
     {
-        
+        public int TransactionId { get; set; }
     }
 }

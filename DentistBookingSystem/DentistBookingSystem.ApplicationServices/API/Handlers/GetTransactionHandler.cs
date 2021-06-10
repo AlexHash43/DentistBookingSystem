@@ -24,9 +24,10 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
 
             var domainTransaction = transaction.Select(x => new Domain.Models.Transaction
             {
+                Id = x.Id,
                 Price = x.Price,
-                User = x.User,
-                UserId = x.UserId
+                UsersId = x.UsersId
+                
             });
 
             var response = new GetTransactionResponse()

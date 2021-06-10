@@ -20,6 +20,9 @@ namespace DentistBookingSystem.DataAccess.Entities
         public string Note { get; set; }
 
 
+        public List<Transaction> Transactions { get; set; }
+
+
 
 
         [ForeignKey("Users")]
