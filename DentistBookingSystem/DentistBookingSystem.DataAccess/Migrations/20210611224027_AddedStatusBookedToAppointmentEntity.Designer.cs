@@ -4,14 +4,16 @@ using DentistBookingSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentistBookingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(AppointmentStorageContext))]
-    partial class AppointmentStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20210611224027_AddedStatusBookedToAppointmentEntity")]
+    partial class AddedStatusBookedToAppointmentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,39 +94,6 @@ namespace DentistBookingSystem.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("EmergencyLists");
-                });
-
-            modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.PracticeTimeOpening", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<TimeSpan?>("BreakTimeStart")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("BreakTimeStop")
-                        .HasColumnType("time");
-
-                    b.Property<string>("DayOfTheWeek")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan?>("TimeClosedAfternoon")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("TimeClosedInTheMorning")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("TimeOpenAfternoon")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("TimeOpenInTheMorning")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PracticeTimeOpenings");
                 });
 
             modelBuilder.Entity("DentistBookingSystem.DataAccess.Entities.Transaction", b =>

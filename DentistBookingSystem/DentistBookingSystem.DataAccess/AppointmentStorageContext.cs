@@ -20,6 +20,7 @@ namespace DentistBookingSystem.DataAccess
         public DbSet<Alert> Alerts{ get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<EmergencyList> EmergencyLists { get; set; }
+        public DbSet<PracticeTimeOpening> PracticeTimeOpenings { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<User> Users { get; set; }
     }
