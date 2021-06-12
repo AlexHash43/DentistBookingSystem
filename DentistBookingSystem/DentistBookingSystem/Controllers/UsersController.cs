@@ -16,8 +16,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 { 
-   // [MyAuthorize(RoleEnum = UserRoles.Administrator) ]
-    [Authorize]
+    [MyAuthorize(RoleEnum = UserRoles.Administrator)]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ApiControllerBase
