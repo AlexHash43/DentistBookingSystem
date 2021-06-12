@@ -84,5 +84,13 @@ namespace DentistBookingSystem.Controllers
             return this.HandleRequest<GetMeRequest, GetMeResponse>(request);
             
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticate")]
+        public Task<IActionResult> Authenticate([FromBody] ValidateUserRequest request)
+        {
+            return this.HandleRequest<ValidateUserRequest, ValidateUserResponse>(request);
+        }
     }
 }
