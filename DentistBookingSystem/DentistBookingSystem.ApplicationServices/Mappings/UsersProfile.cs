@@ -47,6 +47,8 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
                 .ForMember(x => x.Gender, y => y.MapFrom(z => z.Gender))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role));
 
+            this.CreateMap<ValidateUserRequest, DataAccess.Entities.User>()
+                .ForMember(x => x.UserName, y => y.MapFrom(z => z.Username));
 
         }
     }
