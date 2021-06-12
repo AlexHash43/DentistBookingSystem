@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AlertController : ApiControllerBase
     {
