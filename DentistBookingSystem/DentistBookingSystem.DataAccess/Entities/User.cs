@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace DentistBookingSystem.DataAccess.Entities
 {
+    
     public enum UserRoles
     {
         Patient,

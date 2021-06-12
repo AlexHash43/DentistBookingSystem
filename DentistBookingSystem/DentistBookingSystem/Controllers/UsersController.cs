@@ -1,5 +1,7 @@
 ﻿using DentistBookingSystem.ApplicationServices.API.Domain;
+using DentistBookingSystem.ApplicationServices.Components.Authorize;
 using DentistBookingSystem.DataAccess.CQRS.Queries;
+using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -13,8 +15,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
-{
-    //[Authorize]
+{ 
+   // [MyAuthorize(RoleEnum = UserRoles.Administrator) ]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ApiControllerBase
@@ -70,7 +73,7 @@ namespace DentistBookingSystem.Controllers
             };
             return this.HandleRequest<DeleteUserByIdRequest, DeleteUserByIdResponse>(request);
         }
-
+        [Authorize]
         [HttpGet]
         [Route("me")]
         public Task<IActionResult> GetMe()
