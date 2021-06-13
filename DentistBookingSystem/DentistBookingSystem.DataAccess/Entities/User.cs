@@ -10,9 +10,9 @@ namespace DentistBookingSystem.DataAccess.Entities
     
     public enum UserRoles
     {
-        Patient,
-        Recepcjonist,
-        Administrator
+        Patient = 0,
+        Recepcjonist = 1,
+        Administrator = 2
     }
     public class User : EntityBase
     {
