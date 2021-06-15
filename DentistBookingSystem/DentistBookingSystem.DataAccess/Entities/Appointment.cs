@@ -11,11 +11,9 @@ namespace DentistBookingSystem.DataAccess.Entities
     
     public class Appointment : EntityBase
     {
-        [DataType(DataType.Date)]
-        [Column(TypeName = "Date")]
-        public DateTime Date { get; set; }
-        public TimeSpan TimeStart { get; set; }
-        public TimeSpan TimeStop { get; set; }
+        
+        public DateTime TimeStart { get; set; }
+        public DateTime TimeStop { get; set; }
         public DateTime TimeAndDateBooked { get; set; } = DateTime.UtcNow;
         public string Reason { get; set; }
         public string Note { get; set; }

@@ -1,7 +1,7 @@
 ﻿@page "/appointments"
 @attribute [Authorize]
 @inject IAppointmentsService AppointmentsService
-
+@inject IUserService UserService
 
 <div>
     <a class="btn btn-primary" href='/addAppointment'>Add</a>
@@ -10,56 +10,58 @@
 <div class="card mt-4">
     <h4 class="card-header">Appointments</h4>
     <div class="card-body">
-        
+
         <h6>Appointments from secure api end point</h6>
-        
+
         @if (loading)
         {
-    <div class="spinner-border spinner-border-sm"></div>}
+<div class="spinner-border spinner-border-sm"></div>}
         @if (appointments != null)
         {
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Time start</th>
-                <th scope="col">Time stop</th>
-                <th scope="col">Reason</th>
-                <th scope="col">Note</th>
-                <th scope="col">Status</th>
-                <th scope="col">Time and date when booked</th>
-                <th scope="col">User Id</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var appointment in appointments)
-            {
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time start</th>
+            <th scope="col">Time stop</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Note</th>
+            <th scope="col">Status</th>
+            <th scope="col">Time and date when booked</th>
+            <th scope="col">Patient Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in appointments)
+        {
 
-    <tr>
-        <td>@appointment.Id</td>
-        <td>@appointment.Date</td>
-        <td>@appointment.TimeStart</td>
-        <td>@appointment.TimeStop</td>
-        <td>@appointment.Reason</td>
-        <td>@appointment.Note</td>
-        <td>@appointment.StatusBooked</td>
-        <td>@appointment.TimeAndDateBooked</td>
-        <td></td>
-        <td>
-            <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
-            <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
-        </td>
-    </tr>}
-        </tbody>
-    </table>}
-       
+<tr>
+    <td>@appointment.Id</td>
+    <td>@appointment.TimeStart.ToShortDateString()</td>
+    <td>@appointment.TimeStart.ToShortTimeString()</td>
+    <td>@appointment.TimeStop.ToShortTimeString()</td>
+    <td>@appointment.Reason</td>
+    <td>@appointment.Note</td>
+    <td>@appointment.StatusBooked</td>
+    <td>@appointment.TimeAndDateBooked</td>
+    <td>
+        @users.FirstOrDefault(x => x.Id == appointment.UserId).Name<br />
+        @users.FirstOrDefault(x => x.Id == appointment.UserId).Surname
+    </td>
+    <td>
+        <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
+        <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
+    </td>
+</tr>}
+    </tbody>
+</table>}
+
     </div>
 </div>
 
-@code { 
-    private bool loading;
+@code { private bool loading;
     private IEnumerable<Appointment> appointments;
     private IEnumerable<User> users;
 
@@ -67,6 +69,7 @@
     {
         loading = true;
         appointments = await AppointmentsService.GetAll();
+        users = await UserService.GetAll();
         loading = false;
     }
 
@@ -74,8 +77,4 @@
     {
         await AppointmentsService.Delete(id);
         appointments = await AppointmentsService.GetAll();
-    }
-
-    
-
-    }
+    } }

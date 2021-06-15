@@ -12,7 +12,6 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
         {
             this.CreateMap<DentistBookingSystem.DataAccess.Entities.Appointment, Appointment>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Date, y => y.MapFrom(z => z.Date))
                 .ForMember(x => x.TimeStart, y => y.MapFrom(z => z.TimeStart))
                 .ForMember(x => x.TimeStop, y => y.MapFrom(z => z.TimeStop))
                 .ForMember(x => x.TimeAndDateBooked, y => y.MapFrom(z => z.TimeAndDateBooked))
