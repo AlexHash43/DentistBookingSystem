@@ -9,7 +9,7 @@ namespace DentistBookingSystem.DataAccess.CQRS.Commands
 {
     public class UpdateAppointmentCommand : CommandBase<Appointment, Appointment>
     {
-        public override async Task<Appointment> Execute(AppointmentStorageContext context)
+        public async override Task<Appointment> Execute(AppointmentStorageContext context)
         {
             context.Appointments.Update(this.Parameter);
             await context.SaveChangesAsync();

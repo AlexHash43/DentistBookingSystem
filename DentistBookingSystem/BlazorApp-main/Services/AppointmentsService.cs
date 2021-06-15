@@ -31,7 +31,7 @@ namespace BlazorApp.Services
         }
         public async Task<int> Update(Appointment appointment)
         {
-            var result = await _httpService.Put<BookCase>($"/appointment/{appointment.Id}", appointment);
+            var result = await _httpService.Put<Appointment>($"/appointment/{appointment.Id}", appointment);
             return result.Id;
         }
 

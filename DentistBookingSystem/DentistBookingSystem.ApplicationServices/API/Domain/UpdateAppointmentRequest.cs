@@ -16,5 +16,6 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
         public DateTime TimeAndDateBooked { get; set; }
         public string Reason { get; set; }
         public string Note { get; set; }
+        public int UserId { get; set; }
     }
 }

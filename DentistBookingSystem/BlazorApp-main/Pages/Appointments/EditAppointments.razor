@@ -1,0 +1,58 @@
+﻿@page "/appointments/{ID}"
+@attribute [Authorize]
+@inject IAppointmentsService AppointmentsService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="Name" class="control-label">Date</label>
+                <input for="Name" class="form-control" @bind-value="@appointment.Date" />
+
+                <label for="Number" class="control-label">Time Start</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.TimeStart" />
+
+                <label for="Number" class="control-label">Time Stop</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
+
+                <label for="Number" class="control-label">Note</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.Note" />
+
+                <label for="Number" class="control-label">Reason</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.Reason" />
+
+                <label for="Number" class="control-label">Time adn Date Booked</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.TimeAndDateBooked" />
+
+                
+                <input type="hidden" @bind-value="@appointment.Id" />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" @onclick="() => UpdateAppointment()">Save</button>
+                <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code  { [Parameter]
+    public string ID { get; set; }
+
+    Appointment appointment = new Appointment();
+
+    protected override async Task OnInitializedAsync()
+    {
+        appointment = await AppointmentsService.GetById(Convert.ToInt32(ID));
+    }
+
+    protected async Task UpdateAppointment()
+    {
+        await AppointmentsService.Update(appointment);
+        navigationManager.NavigateTo("/appointments");
+    }
+
+    void cancel()
+    {
+        navigationManager.NavigateTo("/appointments");
+    } }

@@ -15,5 +15,6 @@ namespace BlazorApp.Models
         public string Reason { get; set; }
         public string Note { get; set; }
         public bool StatusBooked { get; set; }
+        public int UserId { get; set; }
     }
 }
