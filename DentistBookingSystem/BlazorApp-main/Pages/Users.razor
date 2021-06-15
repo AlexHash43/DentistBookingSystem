@@ -12,12 +12,28 @@
         }
         @if (users != null)
         {
-            <ul>
-                @foreach (var user in users)
-                {
-                    <li>@user.Name @user.Surename</li>
-                }
-            </ul>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">User Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <th scope="row">@user.Id</th>
+                            <td>@user.Name</td>
+                            <td>@user.Surname</td>
+                            <td>@user.Role</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         }
     </div>
 </div>
