@@ -1,0 +1,37 @@
+﻿@page "/aboutme"
+@attribute [Authorize]
+@inject IUserService UserService
+
+<div class="card mt-4">
+    <h4 class="card-header">Users</h4>
+    <div class="card-body">
+        <h6>User (me) from secure api end point</h6>
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (me != null)
+        {
+            <h4>Name: @me.Name</h4>
+            <h4>Surname: @me.Surname</h4>
+            <h4>Email: @me.Email</h4>
+            <h4>Gender: @me.Gender</h4>
+            <h4>Phone number: @me.PhoneNumber</h4>
+            <h4>Registration Date: @me.DateRegistered.ToShortDateString()</h4>
+            <h4>Birth Date: @me.BirthDate.ToShortDateString()</h4>
+        }
+
+    </div>
+</div>
+
+@code {
+    private bool loading;
+    private User me;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        me = await UserService.GetMe();
+        loading = false;
+    }
+}

@@ -14,10 +14,15 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
         public UsersProfile()
         {
             this.CreateMap<DentistBookingSystem.DataAccess.Entities.User, User>()
-                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Surname, y => y.MapFrom(z => z.Surname))
+                .ForMember(x => x.UserName, y => y.MapFrom(z => z.Email))
+                .ForMember(x => x.Email, y => y.MapFrom(z => z.Email))
+                .ForMember(x => x.BirthDate, y => y.MapFrom(z => z.BirthDate))
+                .ForMember(x => x.PhoneNumber, y => y.MapFrom(z => z.PhoneNumber))
+                .ForMember(x => x.Gender, y => y.MapFrom(z => z.Gender))
+                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
                 .ForMember(x => x.ListOfAppointmentsReason, y => y.MapFrom(z => z.Appointments != null ? z.Appointments.Select(x => x.Reason) : new List<string>()));
 
 
