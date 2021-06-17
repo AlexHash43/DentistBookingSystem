@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DentistBookingSystem.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp-main\BlazorApp.csproj", "{EB62B47A-6926-4526-A88D-F5192ED62C5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistBookingSystem.Tests", "DentistBookingSystem.Tests\DentistBookingSystem.Tests.csproj", "{DC5F07FB-6CEC-41F6-98A2-FD8978401EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DentistBookingSystem.Tests", "DentistBookingSystem.Tests\DentistBookingSystem.Tests.csproj", "{DC5F07FB-6CEC-41F6-98A2-FD8978401EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
