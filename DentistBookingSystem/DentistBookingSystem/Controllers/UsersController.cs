@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 { 
-    [Authorize(Roles = "Administrator, Recepcjonist")]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ApiControllerBase
@@ -26,6 +26,7 @@ namespace DentistBookingSystem.Controllers
         {
             logger.LogInformation("We are in Users Controller");
         }
+        [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpGet]
         [Route("")]
         public Task<IActionResult> GetAllUsers([FromQuery]GetUserRequest request)
@@ -34,7 +35,7 @@ namespace DentistBookingSystem.Controllers
            // var response = await this.mediator.Send(request);
            // return this.Ok(response);
         }
-
+        [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpGet]
         [Route("{userId}")]
         public Task<IActionResult> GetByID([FromRoute] int userId)
@@ -54,6 +55,7 @@ namespace DentistBookingSystem.Controllers
             return this.HandleRequest<AddUsersRequest, AddUsersResponse>(request);
         }
 
+        [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpPut]
         [Route("{userId}")]
         public Task<IActionResult> UpdateUser([FromBody]UpdateUsersRequest request, [FromRoute] int userId)
@@ -62,6 +64,7 @@ namespace DentistBookingSystem.Controllers
             return this.HandleRequest<UpdateUsersRequest, UpdateUsersResponse>(request);
         }
 
+        [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpDelete]
         [Route("{userId}")]
         public Task<IActionResult> DeleteUserByID([FromRoute] int userId)
@@ -72,6 +75,7 @@ namespace DentistBookingSystem.Controllers
             };
             return this.HandleRequest<DeleteUserByIdRequest, DeleteUserByIdResponse>(request);
         }
+
         [Authorize]
         [HttpGet]
         [Route("me")]
