@@ -3,9 +3,7 @@
 @inject IAppointmentsService AppointmentsService
 @inject IUserService UserService
 
-<div>
-    <a class="btn btn-primary" href='/addAppointment'>Add</a>
-</div>
+
 
 <div class="card mt-4">
     <h4 class="card-header">Appointments</h4>
@@ -15,48 +13,51 @@
 
         @if (loading)
         {
-<div class="spinner-border spinner-border-sm"></div>}
+            <div class="spinner-border spinner-border-sm"></div>}
         @if (appointments != null)
         {
+            <div class="add-appointment-btn">
+                <a class="btn btn-primary" href='/addAppointment'>Add appointment</a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time start</th>
+                        <th scope="col">Time stop</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Time and date when booked</th>
+                        <th scope="col">Patient Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var appointment in appointments.Reverse())
+                    {
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time start</th>
-            <th scope="col">Time stop</th>
-            <th scope="col">Reason</th>
-            <th scope="col">Note</th>
-            <th scope="col">Status</th>
-            <th scope="col">Time and date when booked</th>
-            <th scope="col">Patient Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var appointment in appointments)
-        {
-
-<tr>
-    <td>@appointment.Id</td>
-    <td>@appointment.TimeStart.ToShortDateString()</td>
-    <td>@appointment.TimeStart.ToShortTimeString()</td>
-    <td>@appointment.TimeStop.ToShortTimeString()</td>
-    <td>@appointment.Reason</td>
-    <td>@appointment.Note</td>
-    <td>@appointment.StatusBooked</td>
-    <td>@appointment.TimeAndDateBooked</td>
-    <td>
-        @users.FirstOrDefault(x => x.Id == appointment.UserId).Name<br />
-        @users.FirstOrDefault(x => x.Id == appointment.UserId).Surname
-    </td>
-    <td>
-        <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
-        <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
-    </td>
-</tr>}
-    </tbody>
-</table>}
+                        <tr>
+                            <td>@appointment.Id</td>
+                            <td>@appointment.TimeStart.ToShortDateString()</td>
+                            <td>@appointment.TimeStart.ToShortTimeString()</td>
+                            <td>@appointment.TimeStop.ToShortTimeString()</td>
+                            <td>@appointment.Reason</td>
+                            <td>@appointment.Note</td>
+                            <td>@appointment.StatusBooked</td>
+                            <td>@appointment.TimeAndDateBooked</td>
+                            <td>
+                                @users.FirstOrDefault(x => x.Id == appointment.UserId).Name<br />
+                                @users.FirstOrDefault(x => x.Id == appointment.UserId).Surname
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
+                                <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
+                            </td>
+                        </tr>
+}
+                </tbody>
+            </table>}
 
     </div>
 </div>
