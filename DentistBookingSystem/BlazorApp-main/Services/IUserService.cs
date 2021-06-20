@@ -8,5 +8,6 @@
     {
         Task<IEnumerable<User>> GetAll();
         Task<User> GetMe();
+
     }
 }

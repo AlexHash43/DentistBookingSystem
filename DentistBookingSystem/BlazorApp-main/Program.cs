@@ -20,6 +20,7 @@ namespace BlazorApp
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IBookCasesService, BookCasesService>()
                 .AddScoped<IAppointmentsService, AppointmentsService>()
+                .AddScoped<IRegisterService, RegisterService>()
                 .AddScoped<IHttpService, HttpService>()
                 .AddScoped<ILocalStorageService, LocalStorageService>();
 
