@@ -23,15 +23,23 @@
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
                 <button class="btn btn-primary">
-                    @if (loading) {
-                        <span class="spinner-border spinner-border-sm mr-1"></span>
-                    }
+                    @if (loading)
+                    {
+            <span class="spinner-border spinner-border-sm mr-1"></span>}
                     Login
                 </button>
-                @if (!string.IsNullOrEmpty(error)) {
-                    <div class="alert alert-danger mt-3 mb-0">@error</div>
-                }
+                <a class="register-btn btn btn-danger" href='/register'>Register</a>
+                @if (!string.IsNullOrEmpty(error))
+                {
+            <div class="alert alert-danger mt-3 mb-0">@error</div>}
+
             </EditForm>
+
+            
+            
+            
+                
+            
         </div>
     </div>
 </div>
