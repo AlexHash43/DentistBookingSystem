@@ -11,10 +11,10 @@
         <form>
             <div class="form-group">
                 <label for="Name" class="control-label">Time Start:</label>
-                <input for="Name" class="form-control" @bind-value="@appointment.TimeStart" />
+                <input type="datetime-local" for="Name" class="form-control" @bind-value="@appointment.TimeStart" />
 
                 <label for="Number" class="control-label">Time Stop</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
+                <input type="datetime-local"for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
 
                 <label for="Number" class="control-label">User</label>
                 <input for="Number" class="form-control" @bind-value="@appointment.UserId" />

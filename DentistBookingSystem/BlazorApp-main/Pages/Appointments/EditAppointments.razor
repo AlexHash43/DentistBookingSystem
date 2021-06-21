@@ -9,10 +9,10 @@
             <div class="form-group">
 
                 <label for="Number" class="control-label">Time Start</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.TimeStart" />
+                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStart" />
 
                 <label for="Number" class="control-label">Time Stop</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
+                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
 
                 <label for="Number" class="control-label">Note</label>
                 <input for="Number" class="form-control" @bind-value="@appointment.Note" />
@@ -21,7 +21,7 @@
                 <input for="Number" class="form-control" @bind-value="@appointment.Reason" />
 
                 <label for="Number" class="control-label">Time adn Date Booked</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.TimeAndDateBooked" />
+                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeAndDateBooked" />
 
 
                 <input type="hidden" @bind-value="@appointment.Id" />

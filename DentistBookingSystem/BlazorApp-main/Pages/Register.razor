@@ -2,9 +2,12 @@
 @inject IRegisterService RegisterService
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
-
+<div class="col-md-8 offset-md-2 mt-5">
+    <div class="card">
+        <h4 class="card-header">Registration</h4>
+        <div class="card-body">
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <EditForm Model=@user>
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -44,7 +47,7 @@
                 <ValidationMessage For=@( () => user.PhoneNumber ) />
             </div>
 
-            @*TODO FIX*@
+            
             <div class="form-group" >
                 <InputSelect @bind-Value=user.Gender  class="form-control">
                     <option selected>Choose Gender</option>
@@ -62,6 +65,9 @@
                 <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
             </div>
         </EditForm>
+</div>
+</div>
+</div>
 </div>
 </div>
 
