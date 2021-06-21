@@ -45,12 +45,12 @@
             </div>
 
             @*TODO FIX*@
-            <div class="form-group">
-                <label for="Name">Gender</label>
-                <InputSelect @bind-Value=user.Gender class="form-control" id="Gender">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </InputSelect>
+            <div class="form-group" >
+                <InputSelect @bind-Value=user.Gender  class="form-control">
+                    <option selected>Choose Gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                </InputSelect>
             <ValidationMessage For=@( () => user.Gender ) />
 
 </div>

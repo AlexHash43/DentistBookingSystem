@@ -22,6 +22,7 @@ namespace BlazorApp.Models
         public string PhoneNumber { get; set; }
         public DateTime DateRegistered { get; set; } = DateTime.Now;
         [Required]
+        [Range(8,50)]
         public string Password { get; set; }
         [Required]
         public string Gender { get; set; }
