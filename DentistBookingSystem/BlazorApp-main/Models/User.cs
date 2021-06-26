@@ -22,10 +22,7 @@ namespace BlazorApp.Models
         public string PhoneNumber { get; set; }
         public DateTime DateRegistered { get; set; } = DateTime.Now;
         [Required]
-        [StringLength(26, MinimumLength = 8)]
-        /*[RegularExpression(@"^(?=.*?[a-z])(?=.*?[0-9]).{6,}$", // This is a very weak password requirement to make the demo easy to review. You should enforce stronger requirements
-            ErrorMessage = "Password should have •  At least one lower case letter • At least one digit • Minimum 6 in length")]
-        */
+        [Range(8,50)]
         public string Password { get; set; }
         [Required]
         public string Gender { get; set; }
