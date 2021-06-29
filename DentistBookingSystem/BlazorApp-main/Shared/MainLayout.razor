@@ -2,21 +2,48 @@
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
+
 @if (AuthenticationService.User != null)
 {
-    <!-- nav -->
+@if (AuthenticationService.User.Role == "Administrator")
+{
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <div class="navbar-nav">
-            <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-            <NavLink href="appointments" class="nav-item nav-link">Appointments</NavLink>
-            <NavLink href="users" class="nav-item nav-link">Users</NavLink>
-            <NavLink href="bookcases" class="nav-item nav-link">Book Cases</NavLink>
-            <NavLink href="counter" class="nav-item nav-link">Counter</NavLink>
-            <NavLink href="aboutme" class="nav-item nav-link">About Me</NavLink>
-            <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
-        </div>
+    <div class="navbar-nav">
+        <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home - Admin</NavLink>
+        <NavLink href="appointments" class="nav-item nav-link">Appointments</NavLink>
+        <NavLink href="users" class="nav-item nav-link">Users</NavLink>
+        <NavLink href="aboutme" class="nav-item nav-link">About Me</NavLink>
+        <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
+    </div>
     </nav>
 }
+
+else if (AuthenticationService.User.Role == "Recepcjonist")
+{
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="navbar-nav">
+        <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home - Recepcjonist</NavLink>
+        <NavLink href="appointments" class="nav-item nav-link">Appointments</NavLink>
+        <NavLink href="users" class="nav-item nav-link">Users</NavLink>
+        <NavLink href="aboutme" class="nav-item nav-link">About Me</NavLink>
+        <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
+    </div>
+</nav> 
+}
+else
+{ 
+
+   <nav class="navbar navbar-expand navbar-dark bg-dark">
+   <div class="navbar-nav">
+   <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home - Patient</NavLink>
+   <NavLink href="aboutme" class="nav-item nav-link">About Me</NavLink>
+   <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
+   </div>
+    </nav>
+    }
+}
+
 
 <div class="container">
     @Body

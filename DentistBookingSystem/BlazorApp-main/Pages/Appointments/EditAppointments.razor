@@ -1,5 +1,5 @@
 ﻿@page "/appointments/{ID}"
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Administrator, Recepcjonist")]
 @inject IAppointmentsService AppointmentsService
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 

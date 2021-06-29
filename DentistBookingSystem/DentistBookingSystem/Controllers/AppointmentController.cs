@@ -2,6 +2,7 @@
 using DentistBookingSystem.DataAccess;
 using DentistBookingSystem.DataAccess.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class AppointmentController : ApiControllerBase
@@ -18,13 +20,14 @@ namespace DentistBookingSystem.Controllers
         {
             logger.LogInformation("We are in Appointment Controller");
         }
-
+        [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpGet]
         [Route("")]
         public Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentRequest request)
         {
             return this.HandleRequest<GetAppointmentRequest, GetAppointmentResponse>(request);
         }
+        
         [HttpGet]
         [Route("{apointmentId}")]
         public Task<IActionResult> GetByID([FromRoute] int apointmentId)
