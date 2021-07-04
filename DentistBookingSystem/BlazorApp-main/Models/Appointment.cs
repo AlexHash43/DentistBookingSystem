@@ -11,10 +11,10 @@ namespace BlazorApp.Models
         public DateTime TimeStart { get; set; }
         public DateTime TimeStop { get; set; }
         public DateTime TimeAndDateBooked { get; set; } 
-        public string Reason { get; set; }
-        public string Note { get; set; }
-        public bool StatusBooked { get; set; }
-        public int UserId { get; set; }
+        public string? Reason { get; set; }
+        public string? Note { get; set; }
+        public bool? StatusBooked { get; set; }
+        public int? UserId { get; set; }
         
     }
 }

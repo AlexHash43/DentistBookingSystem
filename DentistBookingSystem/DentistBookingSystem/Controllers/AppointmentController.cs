@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DentistBookingSystem.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class AppointmentController : ApiControllerBase
@@ -20,14 +20,22 @@ namespace DentistBookingSystem.Controllers
         {
             logger.LogInformation("We are in Appointment Controller");
         }
-        [Authorize(Roles = "Administrator, Recepcjonist")]
+       // [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpGet]
         [Route("")]
         public Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentRequest request)
         {
             return this.HandleRequest<GetAppointmentRequest, GetAppointmentResponse>(request);
         }
+
         
+        [HttpGet]
+        [Route("slots/")]
+        public Task<IActionResult> GetFreeSlotsAppointment([FromQuery] GetFreeSlotsAppointmentRequest request)
+        {
+            return this.HandleRequest<GetFreeSlotsAppointmentRequest, GetFreeSlotsAppointmentResponse>(request);
+        }
+
         [HttpGet]
         [Route("{apointmentId}")]
         public Task<IActionResult> GetByID([FromRoute] int apointmentId)
@@ -39,6 +47,7 @@ namespace DentistBookingSystem.Controllers
             return this.HandleRequest<GetAppointmentByIdRequest, GetAppointmentByIdResponse>(request);
         }
 
+      //  [Authorize(Roles = "Administrator, Recepcjonist")]
         [HttpPost]
         [Route("")]
         public Task<IActionResult> AddAppointment([FromBody] AddAppointmentRequest request)

@@ -12,9 +12,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
         public int Id { get; set; }
         public DateTime TimeStart { get; set; }
         public DateTime TimeStop { get; set; }
-        public DateTime TimeAndDateBooked { get; set; }
-        public string Reason { get; set; }
+        public DateTime TimeAndDateBooked { get; set; } = new DateTime(1,1,1,1,1,1);
+        public string Reason { get; set; } 
         public string Note { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; } 
     }
 }

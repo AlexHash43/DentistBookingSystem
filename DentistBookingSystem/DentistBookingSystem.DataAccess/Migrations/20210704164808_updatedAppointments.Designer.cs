@@ -4,14 +4,16 @@ using DentistBookingSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentistBookingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(AppointmentStorageContext))]
-    partial class AppointmentStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20210704164808_updatedAppointments")]
+    partial class updatedAppointments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace DentistBookingSystem.DataAccess.Migrations
                     b.Property<bool>("StatusBooked")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("TimeAndDateBooked")
+                    b.Property<DateTime>("TimeAndDateBooked")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("TimeStart")

@@ -20,14 +20,15 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
                 .ForMember(x => x.UserId, y => y.MapFrom(z => z.UsersId));
 
 
+
+
             this.CreateMap<AddAppointmentRequest, DataAccess.Entities.Appointment>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.TimeStart, y => y.MapFrom(z => z.TimeStart))
                 .ForMember(x => x.TimeStop, y => y.MapFrom(z => z.TimeStop))
                 .ForMember(x => x.TimeAndDateBooked, y => y.MapFrom(z => z.TimeAndDateBooked))
                 .ForMember(x => x.Note, y => y.MapFrom(z => z.Note))
-                .ForMember(x => x.Reason, y => y.MapFrom(z => z.Reason))
-                .ForMember(x => x.UsersId, y => y.MapFrom(z => z.UserId));
+                .ForMember(x => x.Reason, y => y.MapFrom(z => z.Reason));
 
             this.CreateMap<UpdateAppointmentRequest, DataAccess.Entities.Appointment>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
@@ -41,6 +42,9 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
             this.CreateMap<DeleteAppointmrntByIdRequest, DataAccess.Entities.Appointment>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id));
 
+
+
+            
         }
     }
 }

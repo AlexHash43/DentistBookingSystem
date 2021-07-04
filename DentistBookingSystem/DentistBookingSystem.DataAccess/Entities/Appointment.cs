@@ -14,7 +14,7 @@ namespace DentistBookingSystem.DataAccess.Entities
         
         public DateTime TimeStart { get; set; }
         public DateTime TimeStop { get; set; }
-        public DateTime TimeAndDateBooked { get; set; } = DateTime.UtcNow;
+        public DateTime? TimeAndDateBooked { get; set; }
         public string Reason { get; set; }
         public string Note { get; set; }
         public bool StatusBooked { get; set; }
@@ -25,7 +25,7 @@ namespace DentistBookingSystem.DataAccess.Entities
 
 
         [ForeignKey("Users")]
-        public int UsersId { get; set; }
+        public int? UsersId { get; set; }
         public User Users { get; set; }
     }
 }
