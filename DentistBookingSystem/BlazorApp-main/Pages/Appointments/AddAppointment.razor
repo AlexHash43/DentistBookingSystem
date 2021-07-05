@@ -7,28 +7,30 @@
 </h1>
 <!-----TO DO TIME SLOTS -->
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <EditForm Model=@appointment>
-            <div class="form-group">
-                <label for="Number" class="control-label">Time Start</label>
-                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStart" id="TimeStart" />
+            <div class="form-group d-grid gap-4">
+                <div class="p-2 bg-light border">
+                    <label for="TimeStart" class="control-label">Time Start</label>
+                    <input type="datetime-local" for="Number" class="form-control"  @bind-value="@appointment.TimeStart" id="TimeStart" />
+                </div>
+                <br />
+                <div class="p-2 bg-light border">
+                    <label for="TimeStop" class="control-label">Time Stop</label>
+                    <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStop" id="TimeStop"  />
+                </div>
 
-                <InputDate type="date" @bind-Value="@appointment.TimeStart" />
-                <InputDate type="time" @bind-Value="@appointment.TimeStart" />
+                       
 
-                <label for="Number" class="control-label">Time Stop</label>
-                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStop" id="TimeStop" />
-
-                <label for="Number" class="control-label">User</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.UserId" id="UserId"/>
-
+                <label for="Number" class="control-label">User Id:</label>
+                <input for="Number" class="form-control" @bind-value="@appointment.UserId" id="UserId" />
                 <input type="hidden" @bind-value="@appointment.Id" />
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" @onclick="() => CreateAppointment()">Save</button>
-                <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
-            </div>
-            </EditForm>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" @onclick="() => CreateAppointment()">Save</button>
+                    <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+                </div>
+</EditForm>
     </div>
 </div>
 
@@ -39,7 +41,7 @@
     protected async Task CreateAppointment()
     {
         await AppointmentsService.Create(appointment);
-        navigationManager.NavigateTo("/appointments");
+        navigationManager.NavigateTo("/freeAppointments");
     }
 
     void cancel()
