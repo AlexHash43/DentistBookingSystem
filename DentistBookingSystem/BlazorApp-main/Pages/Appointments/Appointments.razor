@@ -56,6 +56,7 @@
                             <td>
                                 <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
                                 <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
+                                <a class="btn btn-info row mt-1" @onclick="() =>CancelAppointment(appointment)">Cancel Appointment</a>
                             </td>
                         </tr>
                             }
@@ -66,15 +67,28 @@
     </div>
 </div>
 
-@code { private bool loading;
+@code { 
+    
+    private bool loading;
     private IEnumerable<Appointment> appointments;
     private IEnumerable<User> users;
+    private System.Threading.Timer timer;
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
         appointments = await AppointmentsService.GetAll();
         users = await UserService.GetAll();
+
+        timer = new System.Threading.Timer(async (object stateInfo) =>
+        {
+
+            appointments = await AppointmentsService.GetAll();
+            users = await UserService.GetAll();
+
+            StateHasChanged(); // MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
+
+        }, new System.Threading.AutoResetEvent(false), 1000, 1000);
         loading = false;
     }
 
@@ -82,4 +96,26 @@
     {
         await AppointmentsService.Delete(id);
         appointments = await AppointmentsService.GetAll();
-    } }
+    }
+
+    protected async Task CancelAppointment(Appointment appointment)
+    {
+
+        Appointment newAppointment = new Appointment
+        {
+            Id = appointment.Id,
+            TimeStart = appointment.TimeStart,
+            TimeStop = appointment.TimeStop,
+            Note = "",
+            Reason = "",
+            StatusBooked = false,
+            TimeAndDateBooked = new DateTime(0001,01,01,0,0,0),
+            UserId = null
+
+        };
+        await AppointmentsService.Update(newAppointment);
+        appointments = await AppointmentsService.GetAll();
+    }
+
+
+    }
