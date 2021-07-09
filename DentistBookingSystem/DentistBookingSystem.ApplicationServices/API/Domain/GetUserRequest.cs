@@ -9,9 +9,10 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
 {
     public class GetUserRequest : IRequest<GetUserResponse> 
     {
-        public string Name { get; set; } = "";
-        public string Surname { get; set; } = "";
-        public string BirthDate { get; set; } = "";
+#nullable enable
+        public string? Name { get; set; } 
+        public string? Surname { get; set; } 
+        public string? BirthDate { get; set; } 
 
     }
 }

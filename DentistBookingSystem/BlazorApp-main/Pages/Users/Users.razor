@@ -1,11 +1,33 @@
 ﻿@page "/users"
 @attribute [Authorize(Roles = "Administrator, Recepcjonist")]
 @inject IUserService UserService
+@inject NavigationManager uriHelper
+@using System.Threading
 
 <div class="card mt-4">
     <h4 class="card-header">Users</h4>
     <div class="card-body">
         <h6>Users from secure api end point</h6>
+
+        <div class="form-inline">
+            <label class="sr-only" for="filter-name">Filter</label>
+            <input type="text" class="form-control mb-2 mr-sm-2"
+                   @bind="name"
+                   placeholder="Filter by name" required />
+            <label class="sr-only" for="filter-surname">Filter</label>
+            <input type="text" class="form-control mb-2 mr-sm-2"
+                   @bind="surname"
+                   placeholder="Filter by Surname" required/>
+            <button type="button" class="btn btn-primary mr-sm-2 mb-2"
+                    @onclick="Filter">
+                Filter
+            </button>
+            <button type="button" class="btn btn-danger mb-2"
+                    @onclick="Clear">
+                Clear
+            </button>
+        </div>
+
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
@@ -41,11 +63,40 @@
 @code {
     private bool loading;
     private IEnumerable<User> users;
+    private string name = string.Empty;
+    private string surname = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
-        users = await UserService.GetAll();
+        await LoadPeople();
         loading = false;
     }
+
+    async Task LoadPeople()
+    {
+        if (name != string.Empty || surname != string.Empty)
+        {
+            users = await UserService.GetAll(name, surname);
+        }
+        else
+        {
+            users = await UserService.GetAll();
+        }
+
+    }
+
+    private async Task Filter()
+    {
+        await Task.Delay(1000);
+        await LoadPeople();
+
+    }
+
+    private async Task Clear()
+    {
+        name = string.Empty;
+        await LoadPeople();
+    }
+
 }
