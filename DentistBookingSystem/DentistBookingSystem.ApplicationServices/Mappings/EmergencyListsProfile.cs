@@ -15,13 +15,11 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
         {
             this.CreateMap<DentistBookingSystem.DataAccess.Entities.EmergencyList, EmergencyList>()
                .ForMember(x => x.UserId, y => y.MapFrom(z => z.Id))
-               .ForMember(x => x.AlertId, y => y.MapFrom(z => z.AlertId))
-               .ForMember(x => x.User, y => y.MapFrom(z => z.User));
+               .ForMember(x => x.AlertId, y => y.MapFrom(z => z.AlertId));
 
             this.CreateMap<AddEmergencyListRequest, DataAccess.Entities.EmergencyList>()
                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
-               .ForMember(x => x.AlertId, y => y.MapFrom(z => z.AlertId))
-               .ForMember(x => x.User, y => y.MapFrom(z => z.User));
+               .ForMember(x => x.AlertId, y => y.MapFrom(z => z.AlertId));
 
 
 

@@ -1,3 +1,4 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 DentistBookingSystem/.vs/
 DentistBookingSystem/DentistBookingSystem/obj/
 DentistBookingSystem/DentistBookingSystem/bin/
@@ -9,3 +10,53 @@ DentistBookingSystem/BlazorApp-main/obj/
 DentistBookingSystem/BlazorApp-main/bin/
 DentistBookingSystem/DentistBookingSystem.Tests/obj/
 DentistBookingSystem/DentistBookingSystem.Tests/bin/
+
+
+
+
+DentistBookingSystem/AngularApp/
+
+# compiled output
+DentistBookingSystem/AngularApp/dist/
+DentistBookingSystem/AngularApp/tmp/
+DentistBookingSystem/AngularApp/out-tsc/
+# Only exists if Bazel was run
+DentistBookingSystem/AngularApp/bazel-out/
+
+# dependencies
+DentistBookingSystem/AngularApp/node_modules/
+
+# profiling files
+DentistBookingSystem/AngularApp/chrome-profiler-events*.json
+DentistBookingSystem/AngularApp/speed-measure-plugin*.json
+
+# IDEs and editors
+DentistBookingSystem/AngularApp/.idea
+DentistBookingSystem/AngularApp/.project
+DentistBookingSystem/AngularApp/.classpath
+DentistBookingSystem/AngularApp/.c9/
+DentistBookingSystem/AngularApp/*.launch
+DentistBookingSystem/AngularApp/.settings/
+DentistBookingSystem/AngularApp/*.sublime-workspace
+
+# IDE - VSCode
+DentistBookingSystem/AngularApp/.vscode/*
+DentistBookingSystem/AngularApp/!.vscode/settings.json
+DentistBookingSystem/AngularApp/!.vscode/tasks.json
+DentistBookingSystem/AngularApp/!.vscode/launch.json
+DentistBookingSystem/AngularApp/!.vscode/extensions.json
+DentistBookingSystem/AngularApp/.history/*
+
+# misc
+DentistBookingSystem/AngularApp/.sass-cache
+DentistBookingSystem/AngularApp/connect.lock
+DentistBookingSystem/AngularApp/coverage
+DentistBookingSystem/AngularApp/libpeerconnection.log
+DentistBookingSystem/AngularApp/npm-debug.log
+DentistBookingSystem/AngularApp/yarn-error.log
+DentistBookingSystem/AngularApp/testem.log
+DentistBookingSystem/AngularApp/typings
+
+# System Files
+DentistBookingSystem/AngularApp/.DS_Store
+DentistBookingSystem/AngularApp/Thumbs.db

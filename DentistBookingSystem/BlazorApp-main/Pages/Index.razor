@@ -1,6 +1,129 @@
 ﻿@page "/"
 @attribute [Authorize]
+@inject IAppointmentsService AppointmentsService
+@inject IUserService UserService
 
+
+@if (loading)
+{
+<div class="spinner-border spinner-border-sm"></div>}
+@if (me != null)
+{
 <div class="card mt-4">
-    <h4 class="card-header">Hi! You're logged!</h4>
+    <h4 class="card-header">Hi! @me.Name @me.Surname You're logged!</h4>
 </div>
+    @if (me.Role == "Patient")
+    {
+
+
+
+
+<div class="card-body">
+    <button type="button" class="btn btn-success">Add new appointment</button>
+    <button type="button" class="btn btn-info">Add Me For the waiting list</button>
+    <h6>My Appointments</h6>
+
+
+    @if (appointments != null)
+    {
+@if (appointments.Count() < 1)
+{<div class="alert alert-danger" role="alert">
+        You Don't have any appointments!
+    </div> }
+else
+{
+<div class="alert btn-success" role="alert">
+    You have @appointments.Count()
+</div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Time start</th>
+                                        <th scope="col">Time stop</th>
+                                        <th scope="col">Reason</th>
+                                        <th scope="col">Note</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Time and date when booked</th>
+                                        <th scope="col">Patient Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var appointment in appointments.Where(x => x.UserId == me.Id).Reverse())
+                                    {
+
+        @if (appointment.UserId != 0)
+        {
+<tr>
+    <td>@appointment.Id</td>
+    <td>@appointment.TimeStart.ToShortDateString()</td>
+    <td>@appointment.TimeStart.ToShortTimeString()</td>
+    <td>@appointment.TimeStop.ToShortTimeString()</td>
+    <td>@appointment.Reason</td>
+    <td>@appointment.Note</td>
+    <td>@appointment.StatusBooked</td>
+    <td>@appointment.TimeAndDateBooked</td>
+    <td>
+    </td>
+    <td>
+        <a class="btn btn-info row mt-1" @onclick="() => CancelAppointment(appointment)">Cancel Appointment</a>
+    </td>
+</tr>
+}}
+                                </tbody>
+                            </table>}}
+
+</div>
+    }
+}
+
+
+
+                                                @code { private bool loading;
+                                                    private IEnumerable<Appointment> appointmentsFromDatabase;
+                                                    private IEnumerable<Appointment> appointments;
+
+                                                    private User me;
+                                                    private System.Threading.Timer timer;
+
+
+                                                    protected override async Task OnInitializedAsync()
+                                                    {
+                                                        loading = true;
+                                                        appointmentsFromDatabase = await AppointmentsService.GetAll();
+
+
+                                                        timer = new System.Threading.Timer(async (object stateInfo) =>
+                                                        {
+
+                                                            appointmentsFromDatabase = await AppointmentsService.GetAll();
+                                                            appointments = appointmentsFromDatabase.Where(x => x.UserId == me.Id);
+                                                            me = await UserService.GetMe();
+
+                                                            StateHasChanged(); // MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
+
+                                                        }, new System.Threading.AutoResetEvent(false), 1000, 1000);
+                                                        loading = false;
+                                                    }
+
+
+
+                                                    protected async Task CancelAppointment(Appointment appointment)
+                                                    {
+
+                                                        Appointment newAppointment = new Appointment
+                                                        {
+                                                            Id = appointment.Id,
+                                                            TimeStart = appointment.TimeStart,
+                                                            TimeStop = appointment.TimeStop,
+                                                            Note = "",
+                                                            Reason = "",
+                                                            StatusBooked = false,
+                                                            TimeAndDateBooked = new DateTime(0001, 01, 01, 0, 0, 0),
+                                                            UserId = null
+
+                                                        };
+                                                        await AppointmentsService.Update(newAppointment);
+                                                        appointments = await AppointmentsService.GetAll();
+                                                    } }
