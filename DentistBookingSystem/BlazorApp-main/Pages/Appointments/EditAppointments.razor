@@ -2,48 +2,80 @@
 @attribute [Authorize(Roles = "Administrator, Recepcjonist")]
 @inject IAppointmentsService AppointmentsService
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IUserService UserService
+
+
+
 
 <div class="row">
-    <div class="col-md-4">
-        <form>
-            <div class="form-group">
+    <div class="col-md-5">
+    <EditForm Model="@appointment" OnValidSubmit="@UpdateAppointment">
+        <div class="form-group">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+            <label>
+            Time Start:
+            <input type="date" class="form-control"  @bind="@appointment.TimeStart" />
+            <input type="time" class="form-control" @bind="@appointment.TimeStart" />
+             </label>
+             <label>
+            Time Stop:
+            <input type="date" class="form-control"  @bind="@appointment.TimeStop" />
+            <input type="time" class="form-control" @bind="@appointment.TimeStop" />
+            </label>
+            <label>
+            Reason of apointment:
+            <input type="text" class="form-control" @bind="@appointment.Reason" />
+            </label>
+            <label>
+            Note:
+            <input type="text" class="form-control" @bind="@appointment.Note" />
+            </label>
+            <label>
+            Time and date booked:
+            <input type="datetime-local" class="form-control" @bind="@appointment.TimeAndDateBooked" disabled />
+            </label>
 
-                <label for="Number" class="control-label">Time Start</label>
-                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStart" />
+            @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (users != null)
+                {
+                    <label>
+                        User:
+                        <select class="form-control" @bind="@appointment.UserId">
+                            @foreach (var user in users)
+                            {
+                                <option value="@user.Id">@user.Name @user.Surname @user.BirthDate.ToShortDateString()</option>
+                            }
+            </select>
+            </label>
+            }
+   
 
-                <label for="Number" class="control-label">Time Stop</label>
-                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeStop" />
-
-                <label for="Number" class="control-label">Note</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.Note" />
-
-                <label for="Number" class="control-label">Reason</label>
-                <input for="Number" class="form-control" @bind-value="@appointment.Reason" />
-
-                <label for="Number" class="control-label">Time adn Date Booked</label>
-                <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeAndDateBooked" />
-
-                <label for="Number" class="control-label">User ID</label>
-                <input type="number" for="Number" class="form-control" @bind-value="@appointment.UserId" />
-
-                <input type="hidden" @bind-value="@appointment.Id" />
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" @onclick="() => UpdateAppointment()">Save</button>
-                <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
-            </div>
-        </form>
+    <button class="btn btn-info" type="submit">Submit</button>
+    <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
     </div>
+</EditForm>
 </div>
+</div>
+
+
 
 @code  { [Parameter]
     public string ID { get; set; }
+    private bool loading;
+    private IEnumerable<User> users;
 
     Appointment appointment = new Appointment();
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         appointment = await AppointmentsService.GetById(Convert.ToInt32(ID));
+        users = await UserService.GetAll();
+        loading = false;
     }
 
     protected async Task UpdateAppointment()
