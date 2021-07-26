@@ -41,17 +41,17 @@
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (users != null)
-                {
-                    <label>
-                        User:
-                        <select class="form-control" @bind="@appointment.UserId">
-                            @foreach (var user in users)
-                            {
-                                <option value="@user.Id">@user.Name @user.Surname @user.BirthDate.ToShortDateString()</option>
-                            }
-            </select>
+         {
+            <label>
+             User:
+                <select class="form-control" @bind="@appointment.UserId">
+                     @foreach (var user in users)
+                      {
+                         <option value="@user.Id">@user.Name @user.Surname @user.BirthDate.ToShortDateString()</option>
+                      }
+                </select>
             </label>
-            }
+          }
    
 
     <button class="btn btn-info" type="submit">Submit</button>
