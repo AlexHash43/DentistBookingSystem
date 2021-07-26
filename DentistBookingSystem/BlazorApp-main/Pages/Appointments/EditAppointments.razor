@@ -23,6 +23,8 @@
                 <label for="Number" class="control-label">Time adn Date Booked</label>
                 <input type="datetime-local" for="Number" class="form-control" @bind-value="@appointment.TimeAndDateBooked" />
 
+                <label for="Number" class="control-label">User ID</label>
+                <input type="number" for="Number" class="form-control" @bind-value="@appointment.UserId" />
 
                 <input type="hidden" @bind-value="@appointment.Id" />
             </div>
