@@ -81,8 +81,8 @@
 
     protected async Task CreateAppointment()
     {
-        await AppointmentsService.Create(appointment);
-        navigationManager.NavigateTo("/freeAppointments");
+        await AppointmentsService.Update(appointment);
+        navigationManager.NavigateTo("/appointments");
     }
 
     void cancel()

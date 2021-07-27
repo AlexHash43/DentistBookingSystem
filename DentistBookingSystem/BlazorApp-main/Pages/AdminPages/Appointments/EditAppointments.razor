@@ -1,0 +1,92 @@
+﻿@page "/appointments/{ID}"
+@attribute [Authorize(Roles = "Administrator, Recepcjonist")]
+@inject IAppointmentsService AppointmentsService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IUserService UserService
+
+
+
+
+<div class="row">
+    <div class="col-md-5">
+    <EditForm Model="@appointment" OnValidSubmit="@UpdateAppointment">
+        <div class="form-group">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <label>
+                Time Start:
+                <input type="date" class="form-control" @bind="@appointment.DateStart" />
+                <input type="time" class="form-control" @bind="@appointment.TimeStart" />
+            </label>
+            <label>
+                Time Stop:
+                <input type="date" class="form-control" @bind="@appointment.DateStop" />
+                <input type="time" class="form-control" @bind="@appointment.TimeStop" />
+            </label>
+            <label>
+                Reason of apointment:
+                <input type="text" class="form-control" @bind="@appointment.Reason" />
+            </label>
+            <label>
+                Note:
+                <input type="text" class="form-control" @bind="@appointment.Note" />
+            </label>
+            <label>
+                Time and date booked:
+                <input type="datetime-local" class="form-control" @bind="@appointment.TimeAndDateBooked" disabled />
+            </label>
+
+            @if (loading)
+            {
+                <div class="spinner-border spinner-border-sm"></div>
+            }
+            @if (users != null)
+            {
+                <label>
+                    User:
+                    <select class="form-control" @bind="@appointment.UserId">
+
+                        @foreach (var user in users)
+                        {
+                            <option value="@user.Id">@user.Name @user.Surname @user.BirthDate.ToShortDateString()</option>
+                        }
+
+                    </select>
+                </label>
+            }
+
+            <input type="hidden" @bind="@appointment.Id" />
+            <button class="btn btn-info" type="submit">Submit</button>
+            <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+        </div>
+</EditForm>
+</div>
+</div>
+
+
+
+@code  { [Parameter]
+    public string ID { get; set; }
+    private bool loading;
+    private IEnumerable<User> users;
+
+    Appointment appointment = new Appointment();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        appointment = await AppointmentsService.GetById(Convert.ToInt32(ID));
+        users = await UserService.GetAll();
+        loading = false;
+    }
+
+    protected async Task UpdateAppointment()
+    {
+        await AppointmentsService.Update(appointment);
+        navigationManager.NavigateTo("/appointments");
+    }
+
+    void cancel()
+    {
+        navigationManager.NavigateTo("/appointments");
+    } }

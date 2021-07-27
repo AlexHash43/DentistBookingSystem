@@ -1,0 +1,72 @@
+﻿@page "/userAppointments/{ID}"
+@attribute [Authorize]
+@inject IAppointmentsService AppointmentsService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IUserService UserService
+
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Date: @appointment.DateStart.ToShortDateString()
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Time start: @appointment.TimeStart.ToShortTimeString()</li>
+                <li class="list-group-item">Time Finish: @appointment.TimeStop.ToShortTimeString()</li>
+            </ul>
+        </div>
+        <EditForm Model="@appointment" OnValidSubmit="@UpdateAppointment">
+            <div class="form-group">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <label>
+                    Reason of apointment:
+                    <input type="text" class="form-control" @bind="@appointment.Reason" />
+                </label>
+                <label>
+                    Note:
+                    <input type="text" class="form-control" @bind="@appointment.Note" />
+                </label>
+
+
+                <input type="hidden" @bind="@appointment.Id" />
+                <button class="btn btn-info" type="submit">Submit</button>
+                <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+
+@code  { [Parameter]
+    public string ID { get; set; }
+    private bool loading;
+    private User user;
+
+    Appointment appointment = new Appointment();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        appointment = await AppointmentsService.GetById(Convert.ToInt32(ID));
+        user = await UserService.GetMe();
+        loading = false;
+    }
+
+    protected async Task UpdateAppointment()
+    {
+        appointment.UserId = user.Id;
+        appointment.TimeAndDateBooked = DateTime.UtcNow;
+        await AppointmentsService.Update(appointment);
+        navigationManager.NavigateTo("/");
+    }
+
+    void cancel()
+    {
+        navigationManager.NavigateTo("/");
+    } }

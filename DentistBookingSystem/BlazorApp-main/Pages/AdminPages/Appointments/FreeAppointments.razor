@@ -1,0 +1,113 @@
+﻿@page "/freeAppointments"
+@attribute [Authorize]
+@inject IAppointmentsService AppointmentsService
+@inject IUserService UserService
+@inject NavigationManager uriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@using System.Threading
+
+
+
+        <div class="card mt-4">
+            <h4 class="card-header">Free Appointments Slots</h4>
+            <div class="card-body">
+
+                <h6>Appointments from secure api end point</h6>
+
+
+                @if (loading)
+                {
+                    <div class="spinner-border spinner-border-sm"></div>}
+                @if (appointments != null)
+                {
+                    <div class="add-appointment-btn">
+                        <a class="btn btn-primary" href='/addAppointment'>Add appointment</a>
+                        <button type="button" class="btn btn-danger" @onclick="() => back()">Back</button>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time start</th>
+                                <th scope="col">Time stop</th>
+                                <th scope="col">Status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in appointments.Reverse())
+                            {
+                                @if (appointment.UserId == 0)
+                                {
+                                    <tr>
+                                        <td>@appointment.Id</td>
+                                        <td>@appointment.TimeStart.ToShortDateString()</td>
+                                        <td>@appointment.TimeStart.ToShortTimeString()</td>
+                                        <td>@appointment.TimeStop.ToShortTimeString()</td>
+                                        @if (@appointment.StatusBooked == false)
+                                        {
+                                            <td>Free To take</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Taken</td>
+                                        }
+                                        <td>
+                                            <a class="btn btn-primary" href='/appointments/@appointment.Id'>Edit</a>  |
+                                            <a class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>}
+
+            </div>
+        </div>
+        
+    @code { private bool loading;
+        private IEnumerable<Appointment> appointments;
+        private IEnumerable<User> users;
+        private System.Threading.Timer timer;
+
+        protected override async Task OnInitializedAsync()
+        {
+            loading = true;
+            appointments = await AppointmentsService.GetAll();
+            users = await UserService.GetAll();
+
+            timer = new System.Threading.Timer(async (object stateInfo) =>
+            {
+
+                appointments = await AppointmentsService.GetAll();
+                users = await UserService.GetAll();
+
+                StateHasChanged(); // MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
+
+        }, new System.Threading.AutoResetEvent(false), 1000, 1000);
+
+            loading = false;
+        }
+
+        protected async Task DeleteAppointment(int id)
+        {
+
+            await AppointmentsService.Delete(id);
+            appointments = await AppointmentsService.GetAll();
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+            }), null, 2000, 2000);
+        }
+
+        void back()
+        {
+            navigationManager.NavigateTo("/appointments");
+        }
+
+
+
+
+    }
