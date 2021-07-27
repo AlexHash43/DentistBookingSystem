@@ -21,9 +21,15 @@ namespace BlazorApp.Models
         [Required]
         public string PhoneNumber { get; set; }
         public DateTime DateRegistered { get; set; } = DateTime.Now;
+
         [Required]
-        [Range(8, 50)]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
         public string Password { get; set; }
+
+        [Required]
+        [Compare("Password", ErrorMessage = "The Password you entered did not match.")]
+        [Display(Name = "Confirm Password")]
+        public string ConfirmPassword { get; set; }
         [Required]
         public string Gender { get; set; }
 

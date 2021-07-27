@@ -8,7 +8,7 @@
         <div class="card-body">
 <div class="row">
     <div class="col-md-12">
-        <EditForm Model=@user>
+        <EditForm Model=@user OnValidSubmit="@CreateUser">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
@@ -40,6 +40,11 @@
                 <InputText type="password" @bind-Value=user.Password class="form-control" id="Password" />
                 <ValidationMessage For=@( () => user.Password) />
             </div>
+            <div class="form-group">
+                <label for="Password">Confirm Password</label>
+                <InputText type="password" @bind-Value=user.ConfirmPassword class="form-control" id="ConfirmPassword" />
+                <ValidationMessage For=@( () => user.ConfirmPassword) />
+            </div>
 
             <div class="form-group">
                 <label for="Phone">Telephone number</label>
@@ -47,16 +52,16 @@
                 <ValidationMessage For=@( () => user.PhoneNumber ) />
             </div>
 
-            
-            <div class="form-group" >
-                <InputSelect @bind-Value=user.Gender  class="form-control">
+
+            <div class="form-group">
+                <InputSelect @bind-Value=user.Gender class="form-control">
                     <option selected>Choose Gender</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                 </InputSelect>
-            <ValidationMessage For=@( () => user.Gender ) />
+                <ValidationMessage For=@( () => user.Gender ) />
 
-</div>
+            </div>
 
             <input type="hidden" @bind-value="@user.Id" />
 
