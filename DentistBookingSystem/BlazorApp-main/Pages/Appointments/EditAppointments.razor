@@ -15,12 +15,12 @@
         <ValidationSummary />
             <label>
             Time Start:
-            <input type="date" class="form-control"  @bind="@appointment.TimeStart" />
+            <input type="date" class="form-control"  @bind="@appointment.DateStart" />
             <input type="time" class="form-control" @bind="@appointment.TimeStart" />
              </label>
              <label>
             Time Stop:
-            <input type="date" class="form-control"  @bind="@appointment.TimeStop" />
+            <input type="date" class="form-control"  @bind="@appointment.DateStop" />
             <input type="time" class="form-control" @bind="@appointment.TimeStop" />
             </label>
             <label>
@@ -45,10 +45,12 @@
             <label>
              User:
                 <select class="form-control" @bind="@appointment.UserId">
+                    
                      @foreach (var user in users)
                       {
                          <option value="@user.Id">@user.Name @user.Surname @user.BirthDate.ToShortDateString()</option>
                       }
+                      
                 </select>
             </label>
           }

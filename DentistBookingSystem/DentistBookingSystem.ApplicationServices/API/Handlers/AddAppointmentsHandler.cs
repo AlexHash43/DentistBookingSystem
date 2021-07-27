@@ -29,26 +29,35 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
 
         public async Task<AddAppointmentResponse> Handle(AddAppointmentRequest request, CancellationToken cancellationToken)
         {
-            var appointment = this.mapper.Map<Appointment>(request);
-            if (!(appointment.TimeStart < appointment.TimeStop))
-            {
-                return new AddAppointmentResponse { Error = new ErrorModel(ErrorType.WrongDateTimeRange) };
-            }
-
-           
             
-            if (appointment.TimeStart.Ticks < DateTime.Now.Ticks)
-            {
-                return new AddAppointmentResponse { Error = new ErrorModel("This time and date is unavalable") };
-            }
+            var appointment = this.mapper.Map<Appointment>(request);
 
+            /*
+             * TO FIX
+             * 
+             */
+            //if (!(appointment.TimeStart < appointment.TimeStop))
+            //{
+            //    return new AddAppointmentResponse { Error = new ErrorModel(ErrorType.WrongDateTimeRange) };
+            //}
+
+
+
+            //if (appointment.TimeStart.Ticks < DateTime.Now.Ticks)
+            //{
+            //    return new AddAppointmentResponse { Error = new ErrorModel("This time and date is unavalable") };
+            //}
+            if(appointment.UsersId != null )
+            {
+                appointment.StatusBooked = true;
+            }
             var command = new AddAppointmentCommand() { Parameter = appointment };
 
-            var userFromDB = await this.commandExecutor.Execute(command);
+            var appointmentFromDB = await this.commandExecutor.Execute(command);
 
             return new AddAppointmentResponse()
             {
-                Data = this.mapper.Map<Domain.Models.Appointment>(userFromDB)
+                Data = this.mapper.Map<Domain.Models.Appointment>(appointmentFromDB)
             };
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp.Models
 {
@@ -9,9 +10,12 @@ namespace BlazorApp.Models
     {
 
         public int Id { get; set; }
-        public DateTime TimeStart { get; set; } = DateTime.Now;
-        public DateTime TimeStop { get; set; } = DateTime.Now;
-        public DateTime TimeAndDateBooked { get; set; }
+        public DateTime DateStart { get; set; } = DateTime.Today;
+        
+        public DateTime TimeStart { get; set; } = DateTime.UtcNow;
+        public DateTime DateStop { get; set; } = DateTime.Today;
+        public DateTime TimeStop { get; set; } = DateTime.UtcNow;
+        public DateTime TimeAndDateBooked { get; set; } = DateTime.Today;
 #nullable enable
         public string? Reason { get; set; }
 #nullable enable

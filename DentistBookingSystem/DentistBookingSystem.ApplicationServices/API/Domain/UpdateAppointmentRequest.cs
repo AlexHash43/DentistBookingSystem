@@ -10,7 +10,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain
     public class UpdateAppointmentRequest : IRequest<UpdateAppointmentResponse>
     {
         public int Id { get; set; }
+        public DateTime DateStart { get; set; }
         public DateTime TimeStart { get; set; }
+        public DateTime DateStop { get; set; }
         public DateTime TimeStop { get; set; }
         public DateTime TimeAndDateBooked { get; set; }
 #nullable enable

@@ -11,8 +11,9 @@ namespace DentistBookingSystem.DataAccess.Entities
     
     public class Appointment : EntityBase
     {
-        
+        public DateTime DateStart { get; set; }
         public DateTime TimeStart { get; set; }
+        public DateTime DateStop { get; set; }
         public DateTime TimeStop { get; set; }
         public DateTime? TimeAndDateBooked { get; set; }
         public string Reason { get; set; }

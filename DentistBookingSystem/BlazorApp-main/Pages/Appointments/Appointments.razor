@@ -25,8 +25,9 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Date</th>
+                        <th scope="col">Date start</th>
                         <th scope="col">Time start</th>
+                        <th scope="col">Date stop</th>
                         <th scope="col">Time stop</th>
                         <th scope="col">Reason</th>
                         <th scope="col">Note</th>
@@ -42,8 +43,9 @@
                         {
                         <tr>
                             <td>@appointment.Id</td>
-                            <td>@appointment.TimeStart.ToShortDateString()</td>
+                            <td>@appointment.DateStart.ToShortDateString()</td>
                             <td>@appointment.TimeStart.ToShortTimeString()</td>
+                            <td>@appointment.DateStop.ToShortDateString()</td>
                             <td>@appointment.TimeStop.ToShortTimeString()</td>
                             <td>@appointment.Reason</td>
                             <td>@appointment.Note</td>
@@ -67,8 +69,8 @@
     </div>
 </div>
 
-@code { 
-    
+@code {
+
     private bool loading;
     private IEnumerable<Appointment> appointments;
     private IEnumerable<User> users;
@@ -79,6 +81,7 @@
         loading = true;
         appointments = await AppointmentsService.GetAll();
         users = await UserService.GetAll();
+        loading = false;
 
         timer = new System.Threading.Timer(async (object stateInfo) =>
         {
