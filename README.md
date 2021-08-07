@@ -1,6 +1,8 @@
+<img src="https://db3pap006files.storage.live.com/y4mAeLAuF96jfPP-FmMKFvZT1VyoBWm8iXPks2X8ydoGmoFM5-sCwSrWdUbDm2Tz5A-gTpPw7pCR9EwLXKjtra6QQ-JcKZ_MLS4gc1HFYPec2WTRRpdjs9S3T2MSZhPUiVFpv4eG-5acwx_8xPqRMKA6_MYd0alUgAXzM6-iNKSGjy6XUTAmFBiHxg6BBz9aNmO?width=1000&height=427&cropmode=none" width="1000" height="427" />
+
 # Dentist Booking System
 My own project used as my portfolio. This project is an appointment booking system for dental practices.
-This project is being further developed. It is not yet fully functional for commercial use!
+This project is being further developed. **IT IS NOT yet fully functional for commercial use!**
  
 ## Technologies
 * [C# ASP.NET CORE 5](https://dotnet.microsoft.com/download/dotnet/5.0)
