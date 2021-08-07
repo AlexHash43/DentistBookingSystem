@@ -15,7 +15,7 @@ namespace DentistBookingSystem.ApplicationServices.Mappings
             this.CreateMap<DentistBookingSystem.DataAccess.Entities.Transaction, Transaction>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Price, y => y.MapFrom(z => z.Price))
-                .ForMember(x => x.UsersId, y => y.MapFrom(z => z.Id));
+                .ForMember(x => x.UserId, y => y.MapFrom(z => z.UsersId));
         }
     }
 }

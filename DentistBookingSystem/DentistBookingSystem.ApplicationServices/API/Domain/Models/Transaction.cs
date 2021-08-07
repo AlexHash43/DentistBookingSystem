@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain.Models
     {
         public int Id { get; set; }
         public decimal Price { get; set; }
-        public int UsersId { get; set; }
-        public User Users { get; set; }
+
+        
+        public int UserId { get; set; }
         
     }
 }

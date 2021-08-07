@@ -26,7 +26,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Handlers
             {
                 Id = x.Id,
                 Price = x.Price,
-                UsersId = x.UsersId
+                UserId = x.UsersId
                 
             });
 

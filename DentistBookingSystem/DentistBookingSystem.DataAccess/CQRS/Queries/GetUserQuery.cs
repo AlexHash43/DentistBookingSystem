@@ -16,12 +16,18 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
         {
             if (Email != null)
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == this.Email);
+                var user = await context.Users
+                    .Include(x => x.Transactions)
+                    .Include(x => x.Appointments)
+                    .FirstOrDefaultAsync(x => x.Email == this.Email);
                 return user;
             }
             else
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == this.Id);
+                var user = await context.Users
+                    .Include(x => x.Transactions)
+                    .Include(x => x.Appointments)
+                    .FirstOrDefaultAsync(x => x.Id == this.Id);
                 return user;
             }
         }

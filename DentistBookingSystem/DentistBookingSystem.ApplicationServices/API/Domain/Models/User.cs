@@ -28,5 +28,7 @@ namespace DentistBookingSystem.ApplicationServices.API.Domain.Models
 
 
         public List<string> ListOfAppointmentsReason{ get; set; }
+
+        public List<Transaction> Transactions { get; set; }
     }
 }

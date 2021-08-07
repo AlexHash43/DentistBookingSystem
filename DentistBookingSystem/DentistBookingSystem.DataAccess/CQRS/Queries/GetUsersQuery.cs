@@ -23,15 +23,20 @@ namespace DentistBookingSystem.DataAccess.CQRS.Queries
                 {
                     return context.Users.Where(x => x.Name.StartsWith(this.Name) &&
                                                x.Surname.StartsWith(this.Surname))
+                                                .Include(x => x.Appointments)
+                                                .Include(x => x.Transactions)
                                                .ToListAsync();
                 }
                return context.Users.Where(x => x.Name.StartsWith(this.Name) ||
                                                x.Surname.StartsWith(this.Surname))
+                                                .Include(x => x.Appointments)
+                                                .Include(x => x.Transactions)
                                                .ToListAsync();
             }
             
             return context.Users
                 .Include(x => x.Appointments)
+                .Include(x => x.Transactions)
                 .ToListAsync();
             
         }
